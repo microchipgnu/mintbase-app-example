@@ -1,15 +1,18 @@
 import type { AppProps } from 'next/app'
-import { WalletProvider } from '../components/MintbaseWalletContext'
+import { WalletProvider } from '../services/providers/MintbaseWalletContext'
+import { ApolloProvider } from '@apollo/client'
+import { useApollo } from '../services/apolloClient'
 
-import styled, { createGlobalStyle } from 'styled-components'
-
-import GlobalStyles from '../styles/styles'
+import 'tailwindcss/tailwind.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const apolloClient = useApollo(pageProps)
+
   return (
     <WalletProvider apiKey={process.env.NEXT_PUBLIC_MINTBASEJS_API_KEY || ''}>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <ApolloProvider client={apolloClient}>
+        <Component {...pageProps} />
+      </ApolloProvider>
     </WalletProvider>
   )
 }

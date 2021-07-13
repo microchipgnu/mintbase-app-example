@@ -1,21 +1,9 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
-import styled from 'styled-components'
-
-const Body = styled.body`
-  background-color: ${({ theme }) => theme.DARK1};
-  margin: 0 auto;
-  padding: 0;
-`
-
-const MainH = styled(Html)`
-  background-color: ${({ theme }) => theme.DARK};
-  margin: 0 auto;
-`
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <MainH>
+      <Html>
         <Head>
           <link
             href="https://fonts.googleapis.com/css?family=Lato:100,300&display=swap"
@@ -28,11 +16,11 @@ export default class MyDocument extends Document {
           />
         </Head>
 
-        <Body>
+        <div>
           <Main />
           <NextScript />
-        </Body>
-      </MainH>
+        </div>
+      </Html>
     )
   }
 }
