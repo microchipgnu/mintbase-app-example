@@ -1,5 +1,4 @@
 import Navbar from '../components/Navbar'
-import { Button } from '../styles/styles'
 
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 
