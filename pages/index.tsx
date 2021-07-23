@@ -16,7 +16,10 @@ const Home = () => {
       <Header />
       {/* <Navbar /> */}
       <Hero />
-      <Products storeId='wildeverse.mintbase1.near' />
+      {/* <Products storeId='wildeverse.mintbase1.near' /> */}
+      <Products storeId='mintingmusic.mintspace2.testnet' />
+      {/* <Products storeId='kk.mintspace2.testnet' /> */}
+      
       <Footer />
     </>
   )
