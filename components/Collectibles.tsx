@@ -10,7 +10,6 @@ import { MetadataField } from 'mintbase'
 
 import Image from 'next/image'
 import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
-import Collectibles from '../components/Collectibles'
 
 const FETCH_STORE = gql`
   query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
@@ -51,30 +50,31 @@ const FETCH_STORE = gql`
 `
 
 const FETCH_TOKENS = gql`
-  query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
-    metadata(
-      order_by: { thing_id: asc } 
-      where: { thing: { storeId: {_eq: $storeId}}} 
-      limit: $limit
-      offset: $offset
-      distinct_on: thing_id
-    ) {
+query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
+  metadata(
+    order_by: { thing_id: asc } 
+    where: {thing: {tokens: {ownerId: {_eq: $storeId}}}}
+    limit: $limit
+    offset: $offset
+    distinct_on: thing_id
+  ) {
+    id
+    animation_url
+    thing_id
+    thing {
       id
-      animation_url
-      thing_id
-      thing {
-        id
-        metaId
-        memo
-      }
+      metaId
+      memo
     }
   }
+}
 `
+// working collectibles query
 // const FETCH_TOKENS = gql`
 //   query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
 //     token(
 //       order_by: { thingId: asc }
-//       where: { storeId: { _eq: $storeId }, burnedAt: { _is_null: true } }
+//       where: { ownerId: { _eq: $storeId }, burnedAt: { _is_null: true } }
 //       limit: $limit
 //       offset: $offset
 //       distinct_on: thingId
@@ -92,7 +92,6 @@ const FETCH_TOKENS = gql`
 //     }
 //   }
 // `
-
 
 const useAudio = url => {
   const audio = useRef<HTMLAudioElement | undefined>(
@@ -135,6 +134,7 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
     setMetadata(result)
   }
 
+
   //this position of useAudio is important cause of too many renders in previous call
   
   
@@ -144,7 +144,6 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   {
     var [playing, toggle] = useAudio(url);
   }
-     
 
   useEffect(() => {
     fetchMetadata(`${baseUri}/${metaId}`)
@@ -152,8 +151,6 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
 
   if (!metadata) return null
 
-  //const url = "https://arweave.net/6tHNANoHLoLOXeARnFPWp5s2ThnGl96GdBh_sMxllkw";
-  
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 p-3 mb-4">
       <div className="h-96">
@@ -171,7 +168,7 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
           <button onClick={toggle}> {playing ? "Pause" : "Play"} </button>
          }
       </div>
-    </div>
+      </div>
   )
 }
 
@@ -236,13 +233,16 @@ type Thing = {
   id: string
   metaId: string
   memo: string
-  url: string
 }
 
-const Products = ({ storeId }: { storeId: string }) => {
-  const { wallet } = useWallet()
+const Collectibles = ({ storeId }: { storeId: string }) => {
+  const { wallet, isConnected, details } = useWallet()  
+  //const { wallet } = useWallet()
   const [store, setStore] = useState<Store | null>(null)
   const [things, setThings] = useState<any>([])
+  if(isConnected){
+    var accId = wallet?.activeAccount?.accountId//"mintingmusic1.testnet",//storeData.store[0].id,
+  }
 
   const [getStore, { loading: loadingStoreData, data: storeData }] =
     useLazyQuery(FETCH_STORE, {
@@ -262,36 +262,37 @@ const Products = ({ storeId }: { storeId: string }) => {
       },
     })
 
-  useEffect(() => {
-    getStore({
-      variables: {
-        storeId: storeId,
-        limit: 10,
-        offset: 0,
-      },
-    })
-  }, [])
+  // useEffect(() => {
+  //   getStore({
+  //     variables: {
+  //       storeId: "mintingmusic.mintspace2.testnet",
+  //       limit: 10,
+  //       offset: 0,
+  //     },
+  //   })
+  // }, [])
 
   useEffect(() => {
-    if (!storeData) return
+    // if (!storeData) return
 
-    if (storeData?.store.length === 0) return
+    // if (storeData?.store.length === 0) return
 
-    setStore({
-      ...storeData.store[0],
-    })
+    // setStore({
+    //   ...storeData.store[0],
+    // })
 
     getTokens({
       variables: {
-        storeId: storeData.store[0].id,
+        storeId: storeId, //{wallet?.activeAccount?.accountId},//"mintingmusic1.testnet",
         limit: 10,
         offset: 0,
       },
     })
-  }, [storeData])
+  },[])
 
   useEffect(() => {
-    if (!store || !tokensData) return
+    //if (!store || !tokensData) return
+    if (!tokensData) return
 
     //const things = tokensData.token.map((token: any) => token.thing)
     const things = tokensData.metadata.map((metadata: any) => metadata.thing)
@@ -305,32 +306,29 @@ const Products = ({ storeId }: { storeId: string }) => {
   }, [tokensData])
 
   return (
-    <>
     <div className="w-full  px-6 py-12 bg-gray-100 border-t">
-      {!loadingStoreData && (
+      {/* {!loadingStoreData && ( */}
         <>
           <h1 className="text-center text-xl text-gray-600 md:text-4xl px-6 py-12">
-            {store?.name}
+            Hi {wallet?.activeAccount?.accountId}, your collectibles:
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
+
             {things.map((thing: Thing) => (
-              
+              <>     
               <NFT
                 key={thing.metaId}
                 baseUri={store?.baseUri || 'https://arweave.net'}
                 metaId={thing.metaId}
                 url={thing.url}
               />
+              </>
             ))}
           </div>
         </>
-      )}
+      {/* )} */}
     </div>
-    </>
   )
 }
 
-export default Products
-
-
-
+export default Collectibles

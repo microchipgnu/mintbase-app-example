@@ -5,8 +5,12 @@ import Hero from '../components/Hero'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import Products from '../components/Products'
+import Collectibles from '../components/Collectibles'
+import { useWallet } from '../services/providers/MintbaseWalletContext'
+import MusicPlayer from '../components/MusicPlayer'
 
 const Home = () => {
+  const { wallet, isConnected, details } = useWallet()
   return (
     <>
       <Head>
@@ -18,6 +22,10 @@ const Home = () => {
       <Hero />
       {/* <Products storeId='wildeverse.mintbase1.near' /> */}
       <Products storeId='mintingmusic.mintspace2.testnet' />
+      {isConnected && (
+      <Collectibles storeId="mintingmusic1.testnet"/>
+      )}
+      {/* <MusicPlayer /> */}
       {/* <Products storeId='kk.mintspace2.testnet' /> */}
       
       <Footer />
