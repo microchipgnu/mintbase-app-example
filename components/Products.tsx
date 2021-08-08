@@ -10,6 +10,8 @@ import { MetadataField } from 'mintbase'
 
 import Image from 'next/image'
 import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
+//import * from 'react'
+
 import Collectibles from '../components/Collectibles'
 
 const FETCH_STORE = gql`
@@ -94,7 +96,7 @@ const FETCH_TOKENS = gql`
 // `
 
 
-const useAudio = url => {
+const useAudio = (url: string) => {
   const audio = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== "undefined" ? new Audio(url) : undefined
   );
@@ -102,8 +104,9 @@ const useAudio = url => {
   
 const [playing, setPlaying] = useState(false);
 
-const toggle = () => setPlaying(!playing);
-//const toggle = setPlaying(!playing);
+const toggle = () => {
+  setPlaying(!playing);
+}
 
 useEffect(() => {
     playing ? audio.current?.play() : audio.current?.pause();
@@ -140,10 +143,10 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   
   //This line is an expensive line, I don't want it be executed if url is null
   
-  if(url)
-  {
-    var [playing, toggle] = useAudio(url);
-  }
+  //if(url)
+  //{
+    const [playing, toggle] = useAudio(url);
+  //}
      
 
   useEffect(() => {

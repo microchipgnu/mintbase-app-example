@@ -65,7 +65,7 @@ const MusicPlayer = () => {
     //     </div>
     // )
 
-    const useAudio = url => {                
+    const useAudio = (url: string) => {                
         const audio = useRef<HTMLAudioElement | undefined>(
           typeof Audio !== "undefined" ? new Audio(url) : undefined
         );
@@ -97,7 +97,7 @@ const MusicPlayer = () => {
     
       return (
         <div>
-          <button onClick={toggle}>{playing ? "Pause" : "Play"}</button>
+          <button onClick={() =>toggle}> {playing ? "Pause" : "Play"} </button>
         </div>
       )
 }
