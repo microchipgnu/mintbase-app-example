@@ -140,10 +140,9 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   
   //This line is an expensive line, I don't want it be executed if url is null
   
-  if(url)
-  {
-    var [playing, toggle] = useAudio(url);
-  }
+
+    const [playing, toggle] = useAudio(url);
+  
 
   useEffect(() => {
     fetchMetadata(`${baseUri}/${metaId}`)
