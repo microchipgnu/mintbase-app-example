@@ -23,7 +23,8 @@ const Home = () => {
       {/* <Products storeId='wildeverse.mintbase1.near' /> */}
       <Products storeId='mintingmusic.mintspace2.testnet' />
       {isConnected && (
-      <Collectibles storeId="mintingmusic1.testnet"/>
+      // <Collectibles storeId="mintingmusic1.testnet"/>
+      <Collectibles storeId={wallet?.activeAccount?.accountId!}/>
       )}
       {/* <MusicPlayer /> */}
       {/* <Products storeId='kk.mintspace2.testnet' /> */}
