@@ -117,7 +117,7 @@ useEffect(() => {
   };
 }, []);
 
-return [playing, toggle];
+return [playing, toggle] as const;
 
 };
 
