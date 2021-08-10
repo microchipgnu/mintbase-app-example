@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 
@@ -108,7 +108,8 @@ const toggle = () => {
   setPlaying(!playing);
 }
 
-useEffect(() => {
+
+useLayoutEffect(() => {
     playing ? audio.current?.play() : audio.current?.pause();
   },
   [playing]
@@ -312,8 +313,8 @@ const Products = ({ storeId }: { storeId: string }) => {
     <div className="w-full  px-6 py-12 bg-gray-100 border-t">
       {!loadingStoreData && (
         <>
-          <h1 className="text-center text-xl text-gray-600 md:text-4xl px-6 py-12">
-            {store?.name}
+          <h1 className="mb-3 text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-12">
+            {store?.name} Store
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
             {things.map((thing: Thing) => (

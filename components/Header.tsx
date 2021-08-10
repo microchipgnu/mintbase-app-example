@@ -7,16 +7,16 @@ const Header = () => {
     <header className="w-full px-6 bg-white">
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
         <Link href="/" passHref>
-          <a className="py-6 w-full text-center md:text-left md:w-auto text-gray-600 no-underline flex justify-center items-center">
-            Mintbase Engineering
+          <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto text-green-500 no-underline flex justify-center items-center">
+            Minting Music
           </a>
         </Link>
 
         <div className="w-full md:w-auto mb-6 md:mb-0 text-center md:text-right">
           <div className="flex flex-row items-center space-x-2">
             {isConnected && (
-              <p className="text-sm py-2 px-3">
-                Hi, {wallet?.activeAccount?.accountId}
+              <p className="text-lg py-2 px-3 text-green-500 font-semibold">
+                {wallet?.activeAccount?.accountId}
               </p>
             )}
             <button
