@@ -64,10 +64,10 @@ export const WalletProvider = (props: IWalletProvider) => {
 
   const initWallet = async () => {
     const { data: walletData, error } = await new Wallet().init({
-      //networkName: network ?? Network.testnet,
-      networkName: Network.testnet,
-      //chain: chain ?? Chain.near,
-      chain: Chain.near,
+      networkName: network ?? Network.testnet,
+      //networkName: Network.testnet,
+      chain: chain ?? Chain.near,
+      //chain: Chain.near,
       //apiKey: apiKey,
       apiKey: "3367ca4d-cf4f-45ca-b206-03768a24bf17",
     })
@@ -95,7 +95,7 @@ export const WalletProvider = (props: IWalletProvider) => {
   }, [network])
 
   return (
-    <WalletContext.Provider value={{ wallet, details, isConnected: connected }}>
+    <WalletContext.Provider value={{wallet, details, isConnected: connected }}>
       {children}
     </WalletContext.Provider>
   )

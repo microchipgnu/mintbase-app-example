@@ -56,22 +56,92 @@ const FETCH_TOKENS = gql`
   query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
     metadata(
       order_by: { thing_id: asc } 
-      where: { thing: { storeId: {_eq: $storeId}}} 
+      where: {thing: {storeId: {_eq: $storeId}, tokens: {list: {removedAt: {_is_null: true}}}}}
       limit: $limit
       offset: $offset
       distinct_on: thing_id
     ) {
       id
+      media
       animation_url
+      title
       thing_id
       thing {
         id
         metaId
         memo
+        tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+                 id
+                 list {
+                   price
+                 }
+             }
       }
     }
   }
 `
+// metadata(order_by: {thing_id: asc}, where: {thing: {storeId: {_eq: "mintingmusic.mintspace2.testnet"}, tokens: {list: {removedAt: {_is_null: true}}}}}, distinct_on: thing_id) {
+//   id
+//   media
+//   animation_url
+//   title
+//   thing_id
+//   thing {
+//     id
+//     metaId
+//     memo
+//     tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+//       id
+//       list {
+//         price
+//       }
+//     }
+//   }
+// }
+
+// thing.tokens.id
+// thing.tokens.list.price
+//     media
+//     animation_url
+//     animation_hash
+//     title
+//     thing_id
+//     thing {
+//       id
+//       metaId
+//       tokens {
+//         id
+//         list {
+//           price
+//         }
+//       }
+//     }
+//   }
+
+//working function
+// const FETCH_TOKENS = gql`
+//   query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
+//     metadata(
+//       order_by: { thing_id: asc } 
+//       where: { thing: { storeId: {_eq: $storeId}}} 
+//       limit: $limit
+//       offset: $offset
+//       distinct_on: thing_id
+//     ) {
+//       id
+//       animation_url
+//       thing_id
+//       thing {
+//         id
+//         metaId
+//         memo
+//       }
+//     }
+//   }
+//   `
+
+// Don't display token on the store which are not for sale. 
+
 // const FETCH_TOKENS = gql`
 //   query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
 //     token(
@@ -126,9 +196,21 @@ return [playing, toggle] as const;
 
 };
 
-const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: string }) => {
-  const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
 
+const useBuy = (tokenID: string, tokenPrice: string) => {
+  const { wallet } = useWallet();
+  const tokenPriceNumber = Number(tokenPrice) ;
+  tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
+  const buy = () => {
+    //wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: "market.mintspace2.testnet"})
+    wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
+  }
+  return buy;
+}
+
+const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string; url: string; tokens: [Token]}) => {
+  const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
+  const { wallet, isConnected, details } = useWallet();
   const fetchMetadata = async (url: string) => {
     const response = await fetch(url)
 
@@ -149,6 +231,7 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
     const [playing, toggle] = useAudio(url);
   //}
      
+  const buy = useBuy(tokens[0]['id'],tokens[0].list.price) ;
 
   useEffect(() => {
     fetchMetadata(`${baseUri}/${metaId}`)
@@ -174,7 +257,13 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
          {url &&
           <button onClick={toggle}> {playing ? "Pause" : "Play"} </button>
          }
+         <div>
+         { isConnected &&
+         <button onClick={buy}>Buy</button>
+         }
+         </div>
       </div>
+      
     </div>
   )
 }
@@ -241,10 +330,18 @@ type Thing = {
   metaId: string
   memo: string
   url: string
+  tokens: [Token]
+}
+
+type Token = {
+  id: string
+  list: {
+    price: string
+  }
 }
 
 const Products = ({ storeId }: { storeId: string }) => {
-  const { wallet } = useWallet()
+  //const { wallet } = useWallet()
   const [store, setStore] = useState<Store | null>(null)
   const [things, setThings] = useState<any>([])
 
@@ -324,6 +421,8 @@ const Products = ({ storeId }: { storeId: string }) => {
                 baseUri={store?.baseUri || 'https://arweave.net'}
                 metaId={thing.metaId}
                 url={thing.url}
+                tokens={thing.tokens}
+                //tokenPrice="100"//{thing.tokens.list.price}
               />
             ))}
           </div>
@@ -335,6 +434,29 @@ const Products = ({ storeId }: { storeId: string }) => {
 }
 
 export default Products
+
+
+//Query for tokens that are available for sale. 
+// query MyQuery {
+//   metadata(order_by: {thing_id: asc}, where: {thing: {storeId: {_eq: "mintingmusic.mintspace2.testnet"}, tokens: {list: {removedAt: {_is_null: true}}}}}, distinct_on: thing_id) {
+//     id
+//     media
+//     animation_url
+//     title
+//     thing_id
+//     thing {
+//       id
+//       metaId
+//       memo
+//       tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
+//         id
+//         list {
+//           price
+//         }
+//       }
+//     }
+//   }
+// }
 
 
 

@@ -12,4 +12,9 @@ module.exports = {
       'abs.twimg.com',
     ],
   },
+  env: {
+    NETWORK: process.env.NETWORK,
+    STOREID: process.env.STOREID,
+    MINTBASEJS_FACTORY_CONTRACT_NAME: process.env.MINTBASEJS_FACTORY_CONTRACT_NAME
+  },
 }
