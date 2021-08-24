@@ -68,8 +68,8 @@ export const WalletProvider = (props: IWalletProvider) => {
       //networkName: Network.testnet,
       chain: chain ?? Chain.near,
       //chain: Chain.near,
-      //apiKey: apiKey,
-      apiKey: "3367ca4d-cf4f-45ca-b206-03768a24bf17",
+      apiKey: apiKey,
+      //apiKey: "3367ca4d-cf4f-45ca-b206-03768a24bf17",
     })
 
     if (error) {
