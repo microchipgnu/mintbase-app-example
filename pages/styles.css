@@ -1,0 +1,53 @@
+@font-face {
+font-family: mintingmusic;
+  src: url(rebi.ttf);
+}
+
+.headerstyle {
+  background: #231F20;
+  font-family: mintingmusic;
+}
+
+.footerstyle {
+  background: #231F20;
+  color:white;
+  font-family: mintingmusic;
+}
+
+.footerstyle a {
+  color:white;
+}
+
+.playbutton {
+  background-color: #B1DBBB;
+font-family: mintingmusic;
+  border: none;
+  border-radius: 7px;
+  color: black;
+  padding: 13px 32px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+width:100%;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+
+.headerstyle button {
+  background-color: #B1DBBB;
+  border: none;
+  border-radius: 7px;
+  color: black;
+  padding: 13px 32px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+}
+
+.mmtext {
+  font-family: mintingmusic;
+}
