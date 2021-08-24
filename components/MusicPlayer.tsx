@@ -133,7 +133,7 @@ export default MusicPlayer
 //   }
 // }
 
-// working for price and metadata
+//working for price and metadata
 // query MyQuery {
 //   metadata(where: {_and: {media_hash: {_is_null: false}, thing: {storeId: {_eq: "mintingmusic.mintspace2.testnet"}}}}) {
 //     media

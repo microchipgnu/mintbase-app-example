@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <footer className="w-full bg-white px-6 border-t">
+      <footer className="footerstyle w-full px-6 border-t">
         <div className="container mx-auto max-w-8xl py-6 flex flex-wrap md:flex-no-wrap justify-between items-center text-sm">
           &copy;{new Date().getFullYear()} Minting Music. All rights
           reserved.
