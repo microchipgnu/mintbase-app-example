@@ -4,6 +4,8 @@ import { useWallet } from '../services/providers/MintbaseWalletContext'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
+import Image from 'next/image'
+import logo from '../public/minting-music-logo.png'
 
 // cookies.set('myCat', 'Pacman', { path: '/' });
 
@@ -42,7 +44,7 @@ const setShowCookie = () => {
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
         <Link href="/" passHref>
           <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto text-green-500 no-underline flex justify-center items-center">
-            <img src="minting-music-logo.png"/>
+            <Image src={logo}/>
           </a>
         </Link>
 
