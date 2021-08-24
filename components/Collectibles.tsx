@@ -164,7 +164,7 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
           </a>
         </div>
          {url &&
-          <button onClick ={toggle}> {playing ? "Pause" : "Play"} </button>
+          <button className="playbutton" onClick ={toggle}> {playing ? "Pause" : "Play"} </button>
          }
       </div>
       </div>
