@@ -179,7 +179,7 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
   //const url = "https://arweave.net/6tHNANoHLoLOXeARnFPWp5s2ThnGl96GdBh_sMxllkw";
   
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 p-3 mb-4">
+    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-40 px-3">
       <div className="h-96">
         <div className="relative items-center min-h-full">
           <a href="#">
