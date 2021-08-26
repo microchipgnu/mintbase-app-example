@@ -140,8 +140,10 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   
   //This line is an expensive line, I don't want it be executed if url is null
   
-
-    const [playing, toggle] = useAudio(url);
+  const aw = url!=null ? url : "1";
+  const anim_url = aw.split("https://arweave.net/").pop();
+  const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
+  //const [playing, toggle] = useAudio(url);
   
 
   useEffect(() => {
@@ -151,7 +153,7 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   if (!metadata) return null
 
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 p-3 mb-4">
+    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-40 px-3">
       <div className="h-96">
         <div className="relative items-center min-h-full">
           <a href="#">

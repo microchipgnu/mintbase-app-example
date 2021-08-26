@@ -163,10 +163,10 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
   
   //This line is an expensive line, I don't want it be executed if url is null
   
-  //if(url)
-  //{
-    const [playing, toggle] = useAudio(url);
-  //}
+  const aw = url!=null ? url : "1";
+  const anim_url = aw.split("https://arweave.net/").pop();
+  const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
+  
      
   const buy = useBuy(tokens[0]['id'],tokens[0].list.price) ;
 
@@ -176,7 +176,8 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
 
   if (!metadata) return null
 
-  //const url = "https://arweave.net/6tHNANoHLoLOXeARnFPWp5s2ThnGl96GdBh_sMxllkw";
+  // //const aw = metadata[MetadataField.Media]; //"https://arweave.net/6tHNANoHLoLOXeARnFPWp5s2ThnGl96GdBh_sMxllkw";
+  // const mediaHash = aw.split("https://arweave.net/").pop();
   
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-40 px-3">
@@ -186,6 +187,7 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
             <Image
               alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
+              //src={`https://coldcdn.com/api/cdn/bronil/${mediaHash}`}
               layout="fill"
               objectFit="contain"
             />
