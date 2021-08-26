@@ -10,18 +10,18 @@ const Hero = () => {
   return (
     <>
       <div
-        className="w-full py-24 px-6 bg-cover bg-no-repeat bg-center relative z-10"
+        className="w-full py-24 px-6 bg-cover bg-no-repeat bg-top relative z-10"
         style={{
           backgroundImage:
-            "url('empowering-artists.jpg')",
+            "url('7ds-img.jpg')",
         }}
       >
         <div className="container max-w-4xl mx-auto text-center">
           <h1 className="mmtext text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3">
-            Minting Music
+            SEVEN DEAD STARS
           </h1>
           <p className="mmtext text-md md:text-lg text-center text-white ">
-            Find your favorite NFTs on the Marketplace
+            FIND YOUR FAVORITE NFTS ON THE MARKETPLACE
           </p>
 
         </div>

@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 import Image from 'next/image'
-import logo from '../public/minting-music-logo.png'
+import logo from '../public/7ds-logo.png'
 
 // cookies.set('myCat', 'Pacman', { path: '/' });
 
@@ -43,7 +43,7 @@ const setShowCookie = () => {
     <header className="w-full px-6 headerstyle">
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
         <Link href="/" passHref>
-          <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto text-green-500 no-underline flex justify-center items-center">
+          <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
             <Image src={logo}/>
           </a>
         </Link>
@@ -51,7 +51,7 @@ const setShowCookie = () => {
         <div className="w-full md:w-auto mb-6 md:mb-0 text-center md:text-right">
           <div className="flex flex-row items-center space-x-2">
             {isConnected && (
-              <p className="text-lg py-2 px-3 text-green-500 font-semibold">
+              <p className="text-lg py-2 px-3 font-semibold">
                 {wallet?.activeAccount?.accountId}
               </p>
             )}
