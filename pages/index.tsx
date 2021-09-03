@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Minting Music</title>
+        <title>SEVEN DEAD STARS</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
