@@ -312,7 +312,7 @@ const Collectibles = ({ storeId }: { storeId: string }) => {
       {/* {!loadingStoreData && ( */}
         <>
           <h1 className="mb-3 text-xs text-center font-semibold tracking-widest text-gray-500 title-font md:text-4xl px-6 py-12">
-            {wallet?.activeAccount?.accountId}, your collectibles:
+            {wallet?.activeAccount?.accountId}, your Near NFTs:
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
 

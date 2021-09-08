@@ -350,7 +350,7 @@ const Products = ({ storeId }: { storeId: string }) => {
       {!loadingStoreData && (
         <>
           <h1 className="mb-3 text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-12">
-            {store?.name} Store
+            {store?.name} Near Store
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
             {things.map((thing: Thing) => (
