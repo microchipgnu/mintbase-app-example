@@ -11,6 +11,10 @@ import { MetadataField } from 'mintbase'
 import Image from 'next/image'
 import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
 
+import {Player} from 'video-react';
+import 'video-react/dist/video-react.css';
+
+
 const FETCH_STORE = gql`
   query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
     store(where: { id: { _eq: $storeId } }) {
@@ -142,7 +146,8 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   
   const aw = url!=null ? url : "1";
   const anim_url = aw.split("https://arweave.net/").pop();
-  const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
+  //const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
+  const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
   //const [playing, toggle] = useAudio(url);
   
 
@@ -153,21 +158,26 @@ const NFT = ({ baseUri, metaId, url }: { baseUri: string; metaId: string; url: s
   if (!metadata) return null
 
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-40 px-3">
+    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-5 px-3">
       <div className="h-96">
         <div className="relative items-center min-h-full">
-          <a href="#">
+          {/* <a href="#">
             <Image
               alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
               layout="fill"
               objectFit="contain"
             />
-          </a>
+          </a> */}
+           <Player
+              playsInline
+              poster={metadata[MetadataField.Media]}
+              src={url2}
+            />
         </div>
-         {url &&
+         {/* {url &&
           <button className="playbutton" onClick ={toggle}> {playing ? "Pause" : "Play"} </button>
-         }
+         } */}
       </div>
       </div>
   )
@@ -311,7 +321,7 @@ const Collectibles = ({ storeId }: { storeId: string }) => {
     <div className="w-full  px-6 py-12 bg-gray-100 border-t">
       {/* {!loadingStoreData && ( */}
         <>
-          <h1 className="mb-3 text-xs text-center font-semibold tracking-widest text-gray-500 title-font md:text-4xl px-6 py-12">
+          <h1 className="mb-3 text-xl text-center font-semibold tracking-widest text-gray-500 title-font md:text-4xl px-6 py-12">
             {wallet?.activeAccount?.accountId}, your collectibles:
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">

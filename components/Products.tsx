@@ -12,7 +12,8 @@ import Image from 'next/image'
 import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
 //import * from 'react'
 
-import Collectibles from '../components/Collectibles'
+import {Player, BigPlayButton} from 'video-react';
+import 'video-react/dist/video-react.css';
 
 const FETCH_STORE = gql`
   query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
@@ -165,10 +166,12 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
   
   const aw = url!=null ? url : "1";
   const anim_url = aw.split("https://arweave.net/").pop();
-  const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
+  //const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
+  const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
   
      
   const buy = useBuy(tokens[0]['id'],tokens[0].list.price) ;
+  const price = (Number(tokens[0].list.price))/1e+24 ;
 
   useEffect(() => {
     fetchMetadata(`${baseUri}/${metaId}`)
@@ -176,14 +179,14 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
 
   if (!metadata) return null
 
-  // //const aw = metadata[MetadataField.Media]; //"https://arweave.net/6tHNANoHLoLOXeARnFPWp5s2ThnGl96GdBh_sMxllkw";
-  // const mediaHash = aw.split("https://arweave.net/").pop();
+  // const aw2 = metadata[MetadataField.Media];
+  // const mediaHash = aw2.split("https://arweave.net/").pop();
   
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-40 px-3">
+    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-5 px-3">
       <div className="h-96">
-        <div className="relative items-center min-h-full">
-          <a href="#">
+        <div className="relative items-center pb-10">
+          {/* <a href="#">
             <Image
               alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
@@ -191,16 +194,23 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
               layout="fill"
               objectFit="contain"
             />
-          </a>
+          </a> */}
+          <Player
+              playsInline
+              poster={metadata[MetadataField.Media]}
+              src={url2}
+          >
+            <BigPlayButton position="center" />
+          </Player>
         </div>
-         {url &&
+         {/* {url &&
           <button className="playbutton" onClick={toggle}> {playing ? "Pause" : "Play"} </button>
-         }
-         <div>
+         } */}
+         {/* <div> */}
          { isConnected &&
-         <button className="playbutton" onClick={buy}>Buy</button>
+         <button className="playbutton" onClick={buy}>Buy | {price}N</button>
          }
-         </div>
+         {/* </div> */}
       </div>
     </div>
   )
