@@ -201,6 +201,7 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
               //autoPlay
               poster={metadata[MetadataField.Media]}
               //src={url2}
+              //
           >
             {/* <BigPlayButton position="center" /> */}
             <source src={url2} />
