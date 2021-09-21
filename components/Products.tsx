@@ -14,6 +14,7 @@ import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
 
 import {Player, BigPlayButton} from 'video-react';
 import 'video-react/dist/video-react.css';
+//import Video from 'react-native-video';
 
 const FETCH_STORE = gql`
   query FetchStore($storeId: String!, $limit: Int = 20, $offset: Int = 0) {
@@ -196,11 +197,13 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
             />
           </a> */}
           <Player
-              playsInline
+              //playsInline
+              //autoPlay
               poster={metadata[MetadataField.Media]}
-              src={url2}
+              //src={url2}
           >
-            <BigPlayButton position="center" />
+            {/* <BigPlayButton position="center" /> */}
+            <source src={url2} />
           </Player>
         </div>
          {/* {url &&
