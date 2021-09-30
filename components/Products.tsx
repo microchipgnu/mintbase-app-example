@@ -12,7 +12,7 @@ import Image from 'next/image'
 import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
 //import * from 'react'
 
-import {Player, BigPlayButton} from 'video-react';
+import {Player, BigPlayButton, ControlBar} from 'video-react';
 import 'video-react/dist/video-react.css';
 //import Video from 'react-native-video';
 
@@ -82,28 +82,6 @@ const FETCH_TOKENS = gql`
     }
   }
 `
-// const FETCH_TOKENS = gql`
-//   query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
-//     token(
-//       order_by: { thingId: asc }
-//       where: { storeId: { _eq: $storeId }, burnedAt: { _is_null: true } }
-//       limit: $limit
-//       offset: $offset
-//       distinct_on: thingId
-//     ) {
-//       id
-//       thingId
-//       thing {
-//         id
-//         metaId
-//         memo
-//         tokens {
-//           minter         
-//         }
-//       }
-//     }
-//   }
-// `
 
 
 const useAudio = (url: string) => {
@@ -112,27 +90,27 @@ const useAudio = (url: string) => {
   );
   
   
-const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(false);
 
-const toggle = () => {
-  setPlaying(!playing);
-}
+  const toggle = () => {
+    setPlaying(!playing);
+  }
 
 
-useLayoutEffect(() => {
-    playing ? audio.current?.play() : audio.current?.pause();
-  },
-  [playing]
-);
+  useLayoutEffect(() => {
+      playing ? audio.current?.play() : audio.current?.pause();
+    },
+    [playing]
+  );
 
-useEffect(() => {
-  audio.current?.addEventListener('ended', () => setPlaying(false));
-  return () => {
-    audio.current?.removeEventListener('ended', () => setPlaying(false));
-  };
-}, []);
+  useEffect(() => {
+    audio.current?.addEventListener('ended', () => setPlaying(false));
+    return () => {
+      audio.current?.removeEventListener('ended', () => setPlaying(false));
+    };
+  }, []);
 
-return [playing, toggle] as const;
+  return [playing, toggle] as const;
 
 };
 
@@ -180,13 +158,10 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
 
   if (!metadata) return null
 
-  // const aw2 = metadata[MetadataField.Media];
-  // const mediaHash = aw2.split("https://arweave.net/").pop();
-  
-  return (
-    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-5 px-3">
+    return (
+    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-20 px-3">
       <div className="h-96">
-        <div className="relative items-center pb-10">
+        <div className="relative items-center min-h-full pb-10">
           {/* <a href="#">
             <Image
               alt={metadata[MetadataField.Title]}
@@ -197,14 +172,12 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
             />
           </a> */}
           <Player
-              //playsInline
-              //autoPlay
+              playsInline
               poster={metadata[MetadataField.Media]}
-              //src={url2}
+              src={url2}
               //
           >
-            {/* <BigPlayButton position="center" /> */}
-            <source src={url2} />
+            <BigPlayButton position="center" />
           </Player>
         </div>
          {/* {url &&
