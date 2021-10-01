@@ -68,6 +68,7 @@ const FETCH_TOKENS = gql`
       animation_url
       title
       thing_id
+      animation_type
       thing {
         id
         metaId
@@ -76,6 +77,7 @@ const FETCH_TOKENS = gql`
                  id
                  list {
                    price
+                   autotransfer
                  }
              }
       }
@@ -125,7 +127,7 @@ const useBuy = (tokenID: string, tokenPrice: string) => {
   return buy;
 }
 
-const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string; url: string; tokens: [Token]}) => {
+const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; metaId: string; url: string; anim_type: string, tokens: [Token]}) => {
   const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
   const { wallet, isConnected, details } = useWallet();
   const fetchMetadata = async (url: string) => {
@@ -148,21 +150,22 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
   //const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
   const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
   
-     
+  
+  // change these too.
   const buy = useBuy(tokens[0]['id'],tokens[0].list.price) ;
   const price = (Number(tokens[0].list.price))/1e+24 ;
 
   useEffect(() => {
     fetchMetadata(`${baseUri}/${metaId}`)
   }, [])
-
   if (!metadata) return null
 
     return (
     <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-20 px-3">
       <div className="h-96">
         <div className="relative items-center min-h-full pb-10">
-          {/* <a href="#">
+        {!anim_type &&
+          <a href="#">
             <Image
               alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
@@ -170,7 +173,9 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
               layout="fill"
               objectFit="contain"
             />
-          </a> */}
+          </a>
+        }
+        { anim_type &&
           <Player
               playsInline
               poster={metadata[MetadataField.Media]}
@@ -179,6 +184,7 @@ const NFT = ({ baseUri, metaId, url, tokens}: { baseUri: string; metaId: string;
           >
             <BigPlayButton position="center" />
           </Player>
+        }
         </div>
          {/* {url &&
           <button className="playbutton" onClick={toggle}> {playing ? "Pause" : "Play"} </button>
@@ -255,6 +261,7 @@ type Thing = {
   metaId: string
   memo: string
   url: string
+  anim_type: string
   tokens: [Token]
 }
 
@@ -262,6 +269,7 @@ type Token = {
   id: string
   list: {
     price: string
+    autotransfer: string
   }
 }
 
@@ -323,9 +331,11 @@ const Products = ({ storeId }: { storeId: string }) => {
     //const things = tokensData.token.map((token: any) => token.thing)
     const things = tokensData.metadata.map((metadata: any) => metadata.thing)
     const url = tokensData.metadata.map((metadata: any) => metadata.animation_url)
+    const anim_type = tokensData.metadata.map((metadata: any) => metadata.animation_type)
   
     for (let i = 0; i < things.length; i++) {
       things[i].url = url[i]
+      things[i].anim_type = anim_type[i]
     }
 
     setThings(things)
@@ -347,6 +357,7 @@ const Products = ({ storeId }: { storeId: string }) => {
                 baseUri={store?.baseUri || 'https://arweave.net'}
                 metaId={thing.metaId}
                 url={thing.url}
+                anim_type={thing.anim_type}
                 tokens={thing.tokens}
               />
             ))}
