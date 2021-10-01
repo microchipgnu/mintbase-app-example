@@ -151,7 +151,7 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
   const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
   
   
-  // change these too.
+  // change these too. Put NEAR js funcs
   const buy = useBuy(tokens[0]['id'],tokens[0].list.price) ;
   const price = (Number(tokens[0].list.price))/1e+24 ;
 
