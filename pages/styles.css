@@ -20,6 +20,11 @@ font-family: mintingmusic;
   color:white;
 }
 
+.details {
+  font-family: mintingmusic;
+  text-align: start;
+  font-size: 24px;
+}
 .playbutton {
   background-color: #13100D;
 font-family: mintingmusic;
