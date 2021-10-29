@@ -14,6 +14,7 @@ import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
 
 import {Player, BigPlayButton, ControlBar} from 'video-react';
 import 'video-react/dist/video-react.css';
+import { storeKeyNameFromField } from '@apollo/client/utilities'
 //import Video from 'react-native-video';
 
 //import utils from 'near-api-js';
@@ -122,38 +123,24 @@ const useAudio = (url: string) => {
 
 };
 
-// const useBuy = (tokenID: string, tokenPrice: string) => {
-//   const { wallet } = useWallet();
-//   const tokenPriceNumber = Number(tokenPrice) ;
-//   // Number.toLocaleString() rounds after 16 decimal places, so be careful
-//   tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
-//   const buy = () => {
-//     //wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: "market.mintspace2.testnet"})
-//     wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
-//   }
-//   return buy;
-// }
-
-function auctionBuy(id: string){
-  //document.onload = function () {
-    //let bid = (document.getElementById("bid"))  as HTMLInputElement ;
-    const buy = useBuy(id,"100000000")//bid.value)
-    return buy
-  //}
-  
-  // if(bid.value == null)
-  //   bid.value = "100"
-  //bid.value ;
-  //bid.onload
-  //alert(bid.value);
-  //alert(id)
-  
-  //return useBuy(id,"1000000000000000000000")
+const useBuy = (tokenID: string, tokenPrice: string) => {
+  const { wallet } = useWallet();
+  //console.log(tokenPrice);
+  const tokenPriceNumber = Number(tokenPrice) ;
+  // Number.toLocaleString() rounds after 16 decimal places, so be careful
+  tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
+  const buy = () => {
+    //wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: "market.mintspace2.testnet"})
+    wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
+  }
+  return buy;
 }
+
 
 const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; metaId: string; url: string; anim_type: string, tokens: [Token]}) => {
   const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
   const { wallet, isConnected, details } = useWallet();
+  const [bid, setBid] = useState('')
   const fetchMetadata = async (url: string) => {
     const response = await fetch(url)
 
@@ -175,7 +162,6 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
   const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
   
   
-  const buy = useBuy(tokens[0].id,tokens[0].list.price) ;
 
   // change these too. Put NEAR js funcs --- DONE
   const tokenPriceNumber = Number(tokens[0].list.price) ;
@@ -187,11 +173,6 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
     fetchMetadata(`${baseUri}/${metaId}`)
   }, [])
   if (!metadata) return null
-
-  const inputRef = useRef();
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
     return (
     <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
@@ -239,32 +220,14 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
           <>
            <div className="px-1 bg-gray-300 items-center">
            <p className="details">Current bid: {_nearApiJs.utils.format.formatNearAmount((Number(tokens[0].list.offer.price)).toLocaleString('fullwide', {useGrouping:false}),2)}N</p>
-           {/* <form id="my_form"> */}
             <label className="details">Your Bid: </label>
-            <input ref={inputRef} id="bid" type="number" min="0" defaultValue="0.1"/>
-            {/* <button type="submit">Register</button> */}
-            {/* <button className="playbutton" onClick={() => auctionBuy(tokens[0]['id'])}>Bid</button> */}
-          {/* </form> */}
-           
+            <input value={bid} type="number" onChange={e => setBid(e.target.value)}/>
            </div>
-           <button className="playbutton" onClick={useBuy(tokens[0].id,(document.getElementById("bid") as HTMLInputElement).value)}></button>
-           {/* <button className="playbutton">Bid</button> */}
+           <button className="playbutton" onClick={useBuy(tokens[0].id,_nearApiJs.utils.format.parseNearAmount(bid))}>Bid</button>
           </>
          }
     </div>
   )
-}
-
-const useBuy = (tokenID: string, tokenPrice: string) => {
-  const { wallet } = useWallet();
-  const tokenPriceNumber = Number(tokenPrice) ;
-  // Number.toLocaleString() rounds after 16 decimal places, so be careful
-  tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
-  const buy = () => {
-    //wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: "market.mintspace2.testnet"})
-    wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
-  }
-  return buy;
 }
 
 const Pagination = () => {

@@ -8,6 +8,7 @@ import Products from '../components/Products'
 import Collectibles from '../components/Collectibles'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 import MusicPlayer from '../components/MusicPlayer'
+//import Access from '../components/access'
 
 const Home = () => {
   const { wallet, isConnected, details } = useWallet()
@@ -20,15 +21,10 @@ const Home = () => {
       <Header />
       {/* <Navbar /> */}
       <Hero />
-      {/* <Products storeId='wildeverse.mintbase1.near' /> */}
       <Products storeId={process.env.STOREID!} />
       {isConnected && (
-      // <Collectibles storeId="mintingmusic1.testnet"/>
       <Collectibles storeId={wallet?.activeAccount?.accountId!}/>
       )}
-      {/* <MusicPlayer /> */}
-      {/* <Products storeId='kk.mintspace2.testnet' /> */}
-      
       
 <h2 className="mb-3 text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-12"><a href="http://opensea.io/SevenDeadStars" target="_blank" rel="noreferrer">View the official <b>Seven Dead Stars</b> OpenSea Store</a></h2>
 
