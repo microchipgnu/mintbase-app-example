@@ -7,7 +7,6 @@ import Navbar from '../components/Navbar'
 import Products from '../components/Products'
 import Collectibles from '../components/Collectibles'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
-import MusicPlayer from '../components/MusicPlayer'
 //import Access from '../components/access'
 
 const Home = () => {

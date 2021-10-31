@@ -15,9 +15,7 @@ import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
 import {Player, BigPlayButton, ControlBar} from 'video-react';
 import 'video-react/dist/video-react.css';
 import { storeKeyNameFromField } from '@apollo/client/utilities'
-//import Video from 'react-native-video';
 
-//import utils from 'near-api-js';
 var _nearApiJs = require("near-api-js");
 
 const FETCH_STORE = gql`
@@ -93,35 +91,35 @@ const FETCH_TOKENS = gql`
 `
 
 
-const useAudio = (url: string) => {
-  const audio = useRef<HTMLAudioElement | undefined>(
-    typeof Audio !== "undefined" ? new Audio(url) : undefined
-  );
+// const useAudio = (url: string) => {
+//   const audio = useRef<HTMLAudioElement | undefined>(
+//     typeof Audio !== "undefined" ? new Audio(url) : undefined
+//   );
   
   
-  const [playing, setPlaying] = useState(false);
+//   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => {
-    setPlaying(!playing);
-  }
+//   const toggle = () => {
+//     setPlaying(!playing);
+//   }
 
 
-  useLayoutEffect(() => {
-      playing ? audio.current?.play() : audio.current?.pause();
-    },
-    [playing]
-  );
+//   useLayoutEffect(() => {
+//       playing ? audio.current?.play() : audio.current?.pause();
+//     },
+//     [playing]
+//   );
 
-  useEffect(() => {
-    audio.current?.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.current?.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
+//   useEffect(() => {
+//     audio.current?.addEventListener('ended', () => setPlaying(false));
+//     return () => {
+//       audio.current?.removeEventListener('ended', () => setPlaying(false));
+//     };
+//   }, []);
 
-  return [playing, toggle] as const;
+//   return [playing, toggle] as const;
 
-};
+// };
 
 const useBuy = (tokenID: string, tokenPrice: string) => {
   const { wallet } = useWallet();
@@ -136,34 +134,24 @@ const useBuy = (tokenID: string, tokenPrice: string) => {
   return buy;
 }
 
-
 const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; metaId: string; url: string; anim_type: string, tokens: [Token]}) => {
   const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
   const { wallet, isConnected, details } = useWallet();
   const [bid, setBid] = useState('')
+  
   const fetchMetadata = async (url: string) => {
     const response = await fetch(url)
-
     const result = await response.json()
-
     if (!result) return
-
     setMetadata(result)
   }
 
-  //this position of useAudio is important cause of too many renders in previous call
-  
-  
-  //This line is an expensive line, I don't want it be executed if url is null
-  
+  //Put some better logic to get the url
   const aw = url!=null ? url : "1";
   const anim_url = aw.split("https://arweave.net/").pop();
-  //const [playing, toggle] = useAudio(`https://coldcdn.com/api/cdn/bronil/${anim_url}`);
   const url2 = `https://coldcdn.com/api/cdn/bronil/${anim_url}` ;
   
-  
 
-  // change these too. Put NEAR js funcs --- DONE
   const tokenPriceNumber = Number(tokens[0].list.price) ;
   // Number.toLocaleString() rounds after 16 decimal places, so be careful
   const price = _nearApiJs.utils.format.formatNearAmount((tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false}),2);
@@ -174,13 +162,22 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
   }, [])
   if (!metadata) return null
 
+  const tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
+  
+  const buy = () => {
+    if(tokens[0].list.autotransfer){
+      wallet?.makeOffer(tokens[0].id, tokenPrice,{ marketAddress: process.env.marketAddress})
+    }
+    else{
+      wallet?.makeOffer(tokens[0].id, _nearApiJs.utils.format.parseNearAmount(bid),{ marketAddress: process.env.marketAddress})
+    }
+  }
+
     return (
     <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
       <div className="h-80 lg:h-96">
         <div className="bg-gray-300 relative items-center min-h-full">
-        {/* <div className="py-10 lg:py-20"> */}
         {!anim_type &&
-          <a href="#">
             <Image
               alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
@@ -188,23 +185,19 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
               layout="fill"
               objectFit="contain"
             />
-          </a>
         }
         { anim_type &&
           <Player
               playsInline={false}
               poster={metadata[MetadataField.Media]}
               src={url2}
-              //fluid={false}
-              //height={}
           >
             <BigPlayButton position="center" />
           </Player>
         }
-        {/* </div> */}
         </div>
       </div>
-      <div className="mt-1 lg:mt-6 px-1 bg-gray-300 items-center">
+      <div className="mt-1 lg:mt-3 px-1 bg-gray-300 items-center">
          <p className="details">{metadata[MetadataField.Title]}</p>
       </div>   
          { isConnected && tokens[0].list.autotransfer &&
@@ -212,7 +205,7 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
            <div className="px-1 bg-gray-300 items-center">
            <p className="details">Price: {price}N</p>
            </div>
-           <button className="playbutton" onClick={useBuy(tokens[0].id,tokens[0].list.price)}>Buy</button>
+           <button className="playbutton" onClick={buy}>Buy</button>
            </>
          }
          {
@@ -223,9 +216,10 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
             <label className="details">Your Bid: </label>
             <input value={bid} type="number" onChange={e => setBid(e.target.value)}/>
            </div>
-           <button className="playbutton" onClick={useBuy(tokens[0].id,_nearApiJs.utils.format.parseNearAmount(bid))}>Bid</button>
+            <button className="playbutton" onClick={buy}>Bid</button>
           </>
          }
+         {/* <button className="playbutton" onClick={buy}>Buy</button> */}
     </div>
   )
 }
