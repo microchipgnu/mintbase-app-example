@@ -175,9 +175,11 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
 
     return (
     <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
-      <div className="h-80 lg:h-96">
-        <div className="bg-gray-300 relative items-center min-h-full">
+      {/* <div className="h-80 lg:h-96"> */}
+      <div>
+        {/* <div className="bg-gray-300 py-2 relative items-center min-h-full"> */}
         {!anim_type &&
+          <div className="h-80 lg:h-96 bg-gray-300 py-2 relative items-center min-h-full">        
             <Image
               alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
@@ -185,21 +187,27 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
               layout="fill"
               objectFit="contain"
             />
+          </div>
         }
         { anim_type &&
+        <div className="bg-gray-300 py relative items-center min-h-full">
           <Player
               playsInline={false}
+              //fluid={false}
+              aspectRatio="4:4"
               poster={metadata[MetadataField.Media]}
               src={url2}
+              className="items-center"
           >
             <BigPlayButton position="center" />
           </Player>
+        </div> 
         }
-        </div>
+        {/* </div> */}
       </div>
       <div className="mt-1 lg:mt-3 px-1 bg-gray-300 items-center">
          <p className="details">{metadata[MetadataField.Title]}</p>
-      </div>   
+      </div>
          { isConnected && tokens[0].list.autotransfer &&
            <>
            <div className="px-1 bg-gray-300 items-center">

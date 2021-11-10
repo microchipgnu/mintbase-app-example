@@ -125,10 +125,11 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-5 px-3">
-     <div className="h-80 lg:h-96">
+     {/* <div className="h-80 lg:h-96"> */}
+     <div>
         <div className="bg-gray-300 relative items-center min-h-full">
         {!anim_type &&
-          <>
+          <div className="h-80 lg:h-96 bg-gray-300 py-2 relative items-center min-h-full">        
             <Image
               //alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
@@ -138,10 +139,10 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
             />
             <h1>{anim_type}</h1>
             {/* <h1>{url2}</h1> */}
-          </>
+          </div>
         }
         { anim_type &&
-        <>
+        <div className="bg-gray-300 py relative items-center min-h-full">
           <Player
               playsInline={false}
               poster={metadata[MetadataField.Media]}
@@ -149,7 +150,7 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
           >
             <BigPlayButton position="center" />
           </Player>
-        </> 
+        </div> 
         }
         </div>
       </div>
