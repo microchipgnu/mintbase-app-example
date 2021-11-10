@@ -137,7 +137,7 @@ const useBuy = (tokenID: string, tokenPrice: string) => {
 const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; metaId: string; url: string; anim_type: string, tokens: [Token]}) => {
   const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
   const { wallet, isConnected, details } = useWallet();
-  const [bid, setBid] = useState('')
+  const [bid, setBid] = useState('0')
   
   const fetchMetadata = async (url: string) => {
     const response = await fetch(url)
@@ -212,7 +212,9 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
            isConnected && !tokens[0].list.autotransfer && 
           <>
            <div className="px-1 bg-gray-300 items-center">
-           <p className="details">Current bid: {_nearApiJs.utils.format.formatNearAmount((Number(tokens[0].list.offer.price)).toLocaleString('fullwide', {useGrouping:false}),2)}N</p>
+           
+           <p className="details">Current bid: {_nearApiJs.utils.format.formatNearAmount((Number(tokens[0].list.offer.price)).toLocaleString('fullwide', {useGrouping:false}),5)}N</p>
+            {/* <p>{Number(tokens[0].list.offer.price)}</p> */}
             <label className="details">Your Bid: </label>
             <input value={bid} type="number" onChange={e => setBid(e.target.value)}/>
            </div>
