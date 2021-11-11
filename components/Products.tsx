@@ -385,8 +385,9 @@ const Products = ({ storeId }: { storeId: string }) => {
       things[i].anim_type = anim_type[i]
     }
 
-    setThings(things)
+    setThings(things.reverse())
   }, [tokensData])
+  //things = things.reverse()
 
   return (
     <>
