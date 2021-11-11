@@ -173,6 +173,15 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
     }
   }
 
+  var currentBid
+  if(tokens[0].list.offer == null){
+    currentBid = '0'
+  }
+  else{
+    currentBid=_nearApiJs.utils.format.formatNearAmount((Number(tokens[0].list.offer.price)).toLocaleString('fullwide', {useGrouping:false}),5)
+  }
+  
+
     return (
     <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
       {/* <div className="h-80 lg:h-96"> */}
@@ -221,7 +230,7 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
           <>
            <div className="px-1 bg-gray-300 items-center">
            
-           <p className="details">Current bid: {_nearApiJs.utils.format.formatNearAmount((Number(tokens[0].list.offer.price)).toLocaleString('fullwide', {useGrouping:false}),5)}N</p>
+           <p className="details">Current bid: {currentBid}N</p>
             {/* <p>{Number(tokens[0].list.offer.price)}</p> */}
             <label className="details">Your Bid: </label>
             <input value={bid} type="number" onChange={e => setBid(e.target.value)}/>
@@ -330,7 +339,7 @@ const Products = ({ storeId }: { storeId: string }) => {
     useLazyQuery(FETCH_TOKENS, {
       variables: {
         storeId: '',
-        limit: 10,
+        limit: 15,
         offset: 0,
       },
     })
@@ -357,7 +366,7 @@ const Products = ({ storeId }: { storeId: string }) => {
     getTokens({
       variables: {
         storeId: storeData.store[0].id,
-        limit: 10,
+        limit: 15,
         offset: 0,
       },
     })
