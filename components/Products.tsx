@@ -330,7 +330,7 @@ const Products = ({ storeId }: { storeId: string }) => {
     useLazyQuery(FETCH_STORE, {
       variables: {
         storeId: '',
-        limit: 10,
+        limit: 15,
         offset: 0,
       },
     })
@@ -366,7 +366,7 @@ const Products = ({ storeId }: { storeId: string }) => {
     getTokens({
       variables: {
         storeId: storeData.store[0].id,
-        limit: 15,
+        limit: 21,
         offset: 0,
       },
     })
