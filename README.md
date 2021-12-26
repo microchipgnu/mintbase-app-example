@@ -3,9 +3,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First do an install using:
+We try to keep package-lock and yarn.lock in sync as much as possible.
+But mostly package-lock is most updated. If you prefer to use Yarn, do a simple
+```bash
+yarn import
+```
+and your yarn.lock will be upto date.
 
 ```bash
 npm install
+```
+or
+```bash
+yarn install
 ```
 
 First, run the development server:

@@ -1,10 +1,10 @@
 @font-face {
 font-family: mintingmusic;
-  src: url(futura.ttf);
+  src: url(fonts/rebi.ttf);
 }
 
 .headerstyle {
-  background: #FFCC00;
+  background: #231F20;
   font-family: mintingmusic;
   text-transform: uppercase;
 }
@@ -26,11 +26,11 @@ font-family: mintingmusic;
   font-size: 24px;
 }
 .playbutton {
-  background-color: #13100D;
+  background-color: #B1DBBB;
 font-family: mintingmusic;
   border: none;
   border-radius: 7px;
-  color: #FFCC00;
+  color: black;
   padding: 13px 32px;
   text-align: center;
   text-decoration: none;
@@ -42,10 +42,10 @@ width:100%;
 }
 
 .headerstyle button {
-  background-color: #13100D;
+  background-color: #B1DBBB;
   border: none;
   border-radius: 7px;
-  color: #FFCC00;
+  color: black;
   padding: 13px 32px;
   text-align: center;
   text-decoration: none;

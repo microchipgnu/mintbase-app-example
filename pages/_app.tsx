@@ -4,7 +4,8 @@ import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../services/apolloClient'
 
 import 'tailwindcss/tailwind.css'
-import './styles.css'
+//import './styles.css'
+import '../public/styles.css'
 import { Network } from 'mintbase'
 
 function MyApp({ Component, pageProps }: AppProps) {
