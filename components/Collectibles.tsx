@@ -54,10 +54,10 @@ const FETCH_STORE = gql`
 `
 
 const FETCH_TOKENS = gql`
-query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
+query FetchTokensByStoreId($ownerId: String!, $limit: Int, $offset: Int) {
   metadata(
     order_by: { thing_id: asc } 
-    where: {thing: {tokens: {ownerId: {_eq: $storeId}}}}
+    where: {thing: {tokens: {ownerId: {_eq: $ownerId}}}}
     limit: $limit
     offset: $offset
     distinct_on: thing_id
@@ -124,10 +124,9 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
   if (!metadata) return null
 
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 mb-4 pb-5 px-3">
+    <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
      {/* <div className="h-80 lg:h-96"> */}
      <div>
-        <div className="bg-gray-300 relative items-center min-h-full">
         {!anim_type &&
           <div className="h-80 lg:h-96 bg-gray-300 py-2 relative items-center min-h-full">        
             <Image
@@ -137,69 +136,26 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
               layout="fill"
               objectFit="contain"
             />
-            <h1>{anim_type}</h1>
-            {/* <h1>{url2}</h1> */}
           </div>
         }
         { anim_type &&
         <div className="bg-gray-300 py relative items-center min-h-full">
           <Player
               playsInline={false}
+              aspectRatio="4:4"
               poster={metadata[MetadataField.Media]}
               src={url2}
+              className="items-center"
           >
             <BigPlayButton position="center" />
           </Player>
         </div> 
         }
         </div>
-      </div>
-      </div>
-  )
-}
-
-const Pagination = () => {
-  return (
-    <div className="container max-w-4xl mx-auto pb-10 flex justify-between items-center px-3">
-      <div className="text-xs">
-        <a
-          href="#"
-          className="bg-gray-500 text-white no-underline py-1 px-2 rounded-lg mr-2"
-        >
-          Previous
-        </a>
-        <div className="hidden md:inline">
-          <a href="#" className="text-sm px-1 text-gray-900 no-underline">
-            1
-          </a>
-          <a href="#" className="text-sm px-1 text-gray-900 no-underline">
-            2
-          </a>
-          <a href="#" className="text-sm px-1 text-gray-900 no-underline">
-            3
-          </a>
-          <span className="px-2 text-gray">...</span>
-          <a href="#" className="text-sm px-1 text-gray-900 no-underline">
-            42
-          </a>
+        <div className="mt-1 lg:mt-3 px-1 bg-gray-300 items-center">
+          <p className="details">{metadata[MetadataField.Title]}</p>
         </div>
-        <a
-          href="#"
-          className="bg-black text-white no-underline py-1 px-2 rounded-lg ml-2"
-        >
-          Next
-        </a>
       </div>
-
-      <div className="text-sm text-gray-600">
-        Per page:
-        <select className="bg-white border rounded-lg w-24 h-8 ml-1">
-          <option>24</option>
-          <option>48</option>
-          <option>All</option>
-        </select>
-      </div>
-    </div>
   )
 }
 
@@ -235,25 +191,25 @@ type Token = {
   }
 }
 
-const Collectibles = ({ storeId }: { storeId: string }) => {
+const Collectibles = ({ ownerId }: { ownerId: string }) => {
   const { wallet, isConnected, details } = useWallet()  
   //const { wallet } = useWallet()
   const [store, setStore] = useState<Store | null>(null)
   const [things, setThings] = useState<any>([])
 
-  const [getStore, { loading: loadingStoreData, data: storeData }] =
-    useLazyQuery(FETCH_STORE, {
-      variables: {
-        storeId: '',
-        limit: 10,
-        offset: 0,
-      },
-    })
+  // const [getStore, { loading: loadingStoreData, data: storeData }] =
+  //   useLazyQuery(FETCH_STORE, {
+  //     variables: {
+  //       storeId: '',
+  //       limit: 10,
+  //       offset: 0,
+  //     },
+  //   })
 
   const [getTokens, { loading: loadingTokensData, data: tokensData }] =
     useLazyQuery(FETCH_TOKENS, {
       variables: {
-        storeId: '',
+        ownerId: '',
         limit: 10,
         offset: 0,
       },
@@ -263,8 +219,8 @@ const Collectibles = ({ storeId }: { storeId: string }) => {
   useEffect(() => {
     getTokens({
       variables: {
-        storeId: storeId, //{wallet?.activeAccount?.accountId},//"mintingmusic1.testnet",
-        limit: 10,
+        ownerId: ownerId, //{wallet?.activeAccount?.accountId},//"mintingmusic1.testnet",
+        limit: 50,
         offset: 0,
       },
     })
@@ -287,10 +243,10 @@ const Collectibles = ({ storeId }: { storeId: string }) => {
   }, [tokensData])
 
   return (
-    <div className="w-full  px-6 py-12 bg-gray-100 border-t">
+    <div className="w-full  px-6 py-10 bg-gray-100 border-t">
         <>
-          <h1 className="mb-3 text-xl text-center font-semibold tracking-widest text-gray-500 title-font md:text-4xl px-6 py-12">
-            {wallet?.activeAccount?.accountId}, your collectibles:
+          <h1 className="text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
+            {wallet?.activeAccount?.accountId}, your tokens
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
             {things.map((thing: Thing) => (

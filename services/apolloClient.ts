@@ -4,6 +4,8 @@ import { HttpLink } from 'apollo-link-http'
 import { split } from 'apollo-link'
 import { getMainDefinition } from 'apollo-utilities'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { offsetLimitPagination } from "@apollo/client/utilities";
+//import { InMemoryCache } from "@apollo/client";
 import { useMemo } from 'react'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
@@ -20,6 +22,16 @@ const [GRAPH_HTTPS, GRAPH_WSS] = mintbase(process.env.NETWORK!);
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
 let apolloClient: any
+
+// const cache = new InMemoryCache({
+//   typePolicies: {
+//     Query: {
+//       fields: {
+//         metadata : offsetLimitPagination(),
+//       },
+//     },
+//   },
+// });
 
 const createApolloClient = (graphUri?: string) => {
   const httpLink = new HttpLink({
@@ -56,6 +68,7 @@ const createApolloClient = (graphUri?: string) => {
       )
     : httpLink
 
+  
   const client = new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: splitLink,

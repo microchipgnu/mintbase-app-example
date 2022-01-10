@@ -1,20 +1,17 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
-
 import { useWallet } from '../services/providers/MintbaseWalletContext'
-
 import { gql } from 'apollo-boost'
-
 import { useQuery, useLazyQuery } from '@apollo/client'
-
 import { MetadataField } from 'mintbase'
-
 import Image from 'next/image'
 import React, { useRef, forwardRef, useImperativeHandle, Ref } from 'react'
-//import * from 'react'
+import client from '../public/data/client.json'
 
 import {Player, BigPlayButton, ControlBar} from 'video-react';
 import 'video-react/dist/video-react.css';
 import { storeKeyNameFromField } from '@apollo/client/utilities'
+import { offsetLimitPagination } from "@apollo/client/utilities";
+import { InMemoryCache } from "@apollo/client";
 
 var _nearApiJs = require("near-api-js");
 
@@ -90,49 +87,18 @@ const FETCH_TOKENS = gql`
   }
 `
 
-
-// const useAudio = (url: string) => {
-//   const audio = useRef<HTMLAudioElement | undefined>(
-//     typeof Audio !== "undefined" ? new Audio(url) : undefined
-//   );
-  
-  
-//   const [playing, setPlaying] = useState(false);
-
-//   const toggle = () => {
-//     setPlaying(!playing);
+// const useBuy = (tokenID: string, tokenPrice: string) => {
+//   const { wallet } = useWallet();
+//   //console.log(tokenPrice);
+//   const tokenPriceNumber = Number(tokenPrice) ;
+//   // Number.toLocaleString() rounds after 16 decimal places, so be careful
+//   tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
+//   const buy = () => {
+//     //wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: "market.mintspace2.testnet"})
+//     wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
 //   }
-
-
-//   useLayoutEffect(() => {
-//       playing ? audio.current?.play() : audio.current?.pause();
-//     },
-//     [playing]
-//   );
-
-//   useEffect(() => {
-//     audio.current?.addEventListener('ended', () => setPlaying(false));
-//     return () => {
-//       audio.current?.removeEventListener('ended', () => setPlaying(false));
-//     };
-//   }, []);
-
-//   return [playing, toggle] as const;
-
-// };
-
-const useBuy = (tokenID: string, tokenPrice: string) => {
-  const { wallet } = useWallet();
-  //console.log(tokenPrice);
-  const tokenPriceNumber = Number(tokenPrice) ;
-  // Number.toLocaleString() rounds after 16 decimal places, so be careful
-  tokenPrice = (tokenPriceNumber).toLocaleString('fullwide', {useGrouping:false})
-  const buy = () => {
-    //wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: "market.mintspace2.testnet"})
-    wallet?.makeOffer(tokenID,tokenPrice,{ marketAddress: process.env.marketAddress})
-  }
-  return buy;
-}
+//   return buy;
+// }
 
 const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; metaId: string; url: string; anim_type: string, tokens: [Token]}) => {
   const [metadata, setMetadata] = useState<{[key: string]: string} | null>(null)
@@ -184,15 +150,13 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
 
     return (
     <div className="w-full md:w-1/2 lg:w-1/3 my-4 px-3">
-      {/* <div className="h-80 lg:h-96"> */}
       <div>
-        {/* <div className="bg-gray-300 py-2 relative items-center min-h-full"> */}
         {!anim_type &&
           <div className="h-80 lg:h-96 bg-gray-300 py-2 relative items-center min-h-full">        
             <Image
-              alt={metadata[MetadataField.Title]}
+              //alt={metadata[MetadataField.Title]}
               src={metadata[MetadataField.Media]}
-              //src={`https://coldcdn.com/api/cdn/bronil/${mediaHash}`}
+              //src={`https://coldcdn.com/api/cdn/bronil/${metaId}`}
               layout="fill"
               objectFit="contain"
             />
@@ -228,17 +192,14 @@ const NFT = ({ baseUri, metaId, url, anim_type, tokens}: { baseUri: string; meta
          {
            isConnected && !tokens[0].list.autotransfer && 
           <>
-           <div className="px-1 bg-gray-300 items-center">
-           
+           <div className="px-1 bg-gray-300 items-center">          
            <p className="details">Current bid: {currentBid}N</p>
-            {/* <p>{Number(tokens[0].list.offer.price)}</p> */}
             <label className="details">Your Bid: </label>
             <input value={bid} type="number" onChange={e => setBid(e.target.value)}/>
            </div>
             <button className="playbutton" onClick={buy}>Bid</button>
           </>
          }
-         {/* <button className="playbutton" onClick={buy}>Buy</button> */}
     </div>
   )
 }
@@ -322,20 +283,9 @@ type Token = {
 
 
 const Products = ({ storeId }: { storeId: string }) => {
-  //const { wallet } = useWallet()
-  const [store, setStore] = useState<Store | null>(null)
   const [things, setThings] = useState<any>([])
 
-  const [getStore, { loading: loadingStoreData, data: storeData }] =
-    useLazyQuery(FETCH_STORE, {
-      variables: {
-        storeId: '',
-        limit: 15,
-        offset: 0,
-      },
-    })
-
-  const [getTokens, { loading: loadingTokensData, data: tokensData }] =
+  const [getTokens, { loading: loadingTokensData, data: tokensData, fetchMore}] =
     useLazyQuery(FETCH_TOKENS, {
       variables: {
         storeId: '',
@@ -345,35 +295,18 @@ const Products = ({ storeId }: { storeId: string }) => {
     })
 
   useEffect(() => {
-    getStore({
+
+    getTokens({
       variables: {
         storeId: storeId,
-        limit: 10,
+        limit: 50,
         offset: 0,
       },
     })
   }, [])
 
   useEffect(() => {
-    if (!storeData) return
-
-    if (storeData?.store.length === 0) return
-
-    setStore({
-      ...storeData.store[0],
-    })
-
-    getTokens({
-      variables: {
-        storeId: storeData.store[0].id,
-        limit: 21,
-        offset: 0,
-      },
-    })
-  }, [storeData])
-
-  useEffect(() => {
-    if (!store || !tokensData) return
+    if (!tokensData) return
 
     //const things = tokensData.token.map((token: any) => token.thing)
     const things = tokensData.metadata.map((metadata: any) => metadata.thing)
@@ -389,20 +322,30 @@ const Products = ({ storeId }: { storeId: string }) => {
   }, [tokensData])
   //things = things.reverse()
 
+  // const cache = new InMemoryCache({
+  //   typePolicies: {
+  //     Query: {
+  //       fields: {
+  //         metadata : offsetLimitPagination(),
+  //       },
+  //     },
+  //   },
+  // });
+
   return (
     <>
     <div className="w-full px-6 py-10 bg-gray-100 border-t">
-      {!loadingStoreData && (
+      {/* {!loadingStoreData && ( */}
         <>
           <h1 className="text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
-            {store?.name} Near Store
+            {client.Title} Near Store
           </h1>
           <div className="container max-w-8xl mx-auto pb-10 flex flex-wrap">
             {things.map((thing: Thing) => (
               
               <NFT
                 key={thing.metaId}
-                baseUri={store?.baseUri || 'https://arweave.net'}
+                baseUri={'https://arweave.net'}
                 metaId={thing.metaId}
                 url={thing.url}
                 anim_type={thing.anim_type}
@@ -411,8 +354,15 @@ const Products = ({ storeId }: { storeId: string }) => {
             ))}
           </div>
         </>
-      )}
+      {/* )} */}
     </div>
+    {/* <button onClick={() => fetchMore!({
+        variables: {
+          offset: tokensData.metadata.length,
+          limit: 6,
+        },
+        
+        })}>Load More</button> */}
     </>
   )
 }
