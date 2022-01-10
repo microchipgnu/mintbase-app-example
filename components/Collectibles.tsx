@@ -243,7 +243,7 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
   }, [tokensData])
 
   return (
-    <div className="w-full  px-6 py-10 bg-gray-100 border-t">
+    <div className="w-full px-6 py-10 bg-gray-100 border-t">
         <>
           <h1 className="text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
             {wallet?.activeAccount?.accountId}, your tokens

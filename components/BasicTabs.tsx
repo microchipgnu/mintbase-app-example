@@ -17,7 +17,7 @@ function TabPanel(props: { [x: string]: any; children: any; value: any; index: a
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 1}}>
+        <Box sx={{ p: 0.5}}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -49,7 +49,7 @@ export default function BasicTabs() {
   return (
     <Box sx={{ width: '100%'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-        <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs variant="fullWidth" TabIndicatorProps={{style: {background:'#231F20'}}} value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="MarketPlace" {...a11yProps(0)} />
           <Tab label="Your Owned" {...a11yProps(1)} />
         </Tabs>
@@ -58,7 +58,16 @@ export default function BasicTabs() {
         <Products storeId={process.env.STOREID!} />
       </TabPanel>
       <TabPanel value={value} index={1}>
+      {isConnected ? 
       <Collectibles ownerId={wallet?.activeAccount?.accountId!}/>
+      :
+      
+      <div className="w-full px-6 py-12 bg-gray-100 border-t">
+      <div className="text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-11">
+        Login using your NEAR wallet</div> 
+      </div>
+        }
+      
       </TabPanel>
     </Box>
   );

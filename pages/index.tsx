@@ -18,17 +18,8 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      {/* <Navbar /> */}
       <Hero />
-      {/* <Tabs1 /> */}
       <BasicTabs/>
-      {/* <Products storeId={process.env.STOREID!} /> */}
-      {/* {isConnected && (
-      <Collectibles storeId={wallet?.activeAccount?.accountId!}/>
-      )} */}
-      
-{/* <h2 className="mb-3 text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-12"><a href="http://opensea.io/SevenDeadStars" target="_blank" rel="noreferrer">View the official <b>{client.Title}</b> OpenSea Store</a></h2> */}
-
       <Footer />
     </>
   )
