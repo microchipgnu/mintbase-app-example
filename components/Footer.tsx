@@ -3,7 +3,7 @@ import client from '../public/data/client.json'
 const Footer = () => {
   return (
     <>
-      <footer className="footerstyle w-full px-6 border-t">
+      <footer className="footerstyle w-full px-6 border-t fixed inset-x-0 bottom-0">
         <div className="container mx-auto max-w-8xl py-6 flex flex-wrap md:flex-no-wrap justify-between items-center text-sm">
           &copy;{new Date().getFullYear()} {client.Title}. All rights
           reserved.

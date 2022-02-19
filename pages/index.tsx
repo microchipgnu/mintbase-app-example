@@ -17,10 +17,8 @@ const Home = () => {
         <title>{client.Title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
       <Hero />
-      <BasicTabs/>
-      <Footer />
+      <BasicTabs />
     </>
   )
 }
