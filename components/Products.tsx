@@ -6,6 +6,7 @@ import React from 'react'
 import client from '../public/data/client.json'
 import { Player, BigPlayButton } from 'video-react';
 import 'video-react/dist/video-react.css';
+import { ProductMeta, Token } from '../interfaces/thing.interface';
 
 var _nearApiJs = require("near-api-js");
 
@@ -36,7 +37,7 @@ query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
     }
 }`
 
-const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: { thing_id: string; media: string; title: string; animation_url: string; animation_type: string, tokens: [Token] }) => {
+const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: { thing_id: string; media: string; title: string; animation_url: string; animation_type: string, tokens: Token[] }) => {
 
   const tokenPriceNumber = Number(tokens[0].list.price);
   // Number.toLocaleString() rounds after 16 decimal places, so be careful
@@ -102,32 +103,10 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
   )
 }
 
-type Token = {
-  id: string
-  list: {
-    price: string
-    autotransfer: boolean
-    offer: {
-      price: string
-    }
-  }
-}
-
-type MetaData = {
-  id: string
-  media: string
-  animation_url: string
-  title: string
-  animation_type: string
-  thing: {
-    id: string
-    tokens: [Token]
-  }
-}
 
 
 const Products = ({ storeId }: { storeId: string }) => {
-  const [metaData, setMetaData] = useState<any>([])
+  const [metaData, setMetaData] = useState<ProductMeta[]>([])
 
   const [getTokens, { loading: loadingTokensData, data: tokensData, fetchMore }] =
     useLazyQuery(FETCH_TOKENS, {
@@ -150,9 +129,8 @@ const Products = ({ storeId }: { storeId: string }) => {
   }, [])
 
   useEffect(() => {
-    if (!tokensData) return
-    const metadata = tokensData.metadata.map((metadata: any) => metadata)
-    setMetaData(metadata)
+    if (!tokensData) return;
+    setMetaData(tokensData.metadata)
   }, [tokensData])
 
   return (
@@ -164,7 +142,7 @@ const Products = ({ storeId }: { storeId: string }) => {
           </h1>
           <div className="container mx-auto pb-10 justify-center">
             <div className="flex flex-wrap">
-              {metaData.map((meta: MetaData) => (
+              {metaData.map((meta: ProductMeta) => (
                 <NFT
                   thing_id={meta.thing.id}
                   media={meta.media}
