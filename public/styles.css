@@ -6,9 +6,9 @@
 font-family: mintingmusic;
   src: url(fonts/rebi.ttf);
 }
-.headerstyle{
+/* .headerstyle{
   @apply w-full px-6 bg-[#231F20] uppercase
-}
+} */
 .footerstyle{
   @apply w-full px-6 border-t  inset-x-0 bottom-0 bg-[#231F20] text-white uppercase
 }
@@ -22,7 +22,7 @@ font-family: mintingmusic;
   @apply bg-[#B1DBBB] border-none rounded-md text-black text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#b1e6be]
 }
 .headerBtn{
-  @apply bg-[#B1DBBB] border-none rounded-md text-center uppercase w-52 h-12 inline-block no-underline text-black text-sm py-2 px-3
+  @apply bg-[#475787]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-3
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
@@ -67,3 +67,10 @@ font-family: mintingmusic;
   margin: 4px 2px;
 }
 
+.header-bg {
+  background-color:#0f0e13;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, rgb(71, 87, 134) 0, transparent 50%);
+    /* radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), */
+}

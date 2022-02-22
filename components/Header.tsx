@@ -8,7 +8,7 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 const Header = () => {
   const { wallet, isConnected, details } = useWallet()
   return (
-    <header className="fontFamily headerstyle ">
+    <header className="fontFamily header-bg py-2 px-2">
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
         <Link href="/" passHref>
           <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
@@ -17,9 +17,9 @@ const Header = () => {
         </Link>
 
         <div className="w-full md:w-auto mb-6 md:mb-0 text-center md:text-right">
-          <div className="flex flex-row items-center space-x-2">
+          <div className="flex w-full justify-between">
             {isConnected && (
-              <p className="text-lg py-2 px-3 font-semibold">
+              <p className="text-lg py-2 px-3 font-semibold text-white">
                 {wallet?.activeAccount?.accountId}
               </p>
             )}
