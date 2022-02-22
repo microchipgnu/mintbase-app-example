@@ -121,7 +121,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                 <>
                                     <span className="text-gray-500 mt-3">{price} Near</span>
                                     <div className="flex items-center mt-6">
-                                        <button className="buybutton" onClick={buy}>Buy</button>
+                                        <button className="fontFamily buyButton" onClick={buy}>Buy</button>
                                     </div>
                                 </>
                             }
@@ -134,7 +134,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                         <input value={bid} type="number" onChange={e => setBid(e.target.value)} />
                                     </div>
                                     <div className="flex items-center mt-3">
-                                        <button className="buybutton" onClick={buy}>Bid</button>
+                                        <button className="buyButton" onClick={buy}>Bid</button>
                                     </div>
                                 </>
                             }

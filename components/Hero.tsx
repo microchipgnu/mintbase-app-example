@@ -17,10 +17,10 @@ const Hero = () => {
         }}
       >
         <div className="container max-w-4xl mx-auto text-center">
-          <h1 className="mmtext text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3">
+          <h1 className="fontFamily heroH1">
             {client.HeroTitle}
           </h1>
-          <p className="mmtext text-md md:text-lg text-center text-white ">
+          <p className="fontFamily heroP">
             {client.HeroQuote}
           </p>
 
