@@ -1,4 +1,4 @@
-function Player({src, thumbnail}: {src: string, thumbnail: string}) {
+function Player({src, thumbnail}: {src?: string, thumbnail: string}) {
 
     return (
         <div className="">
