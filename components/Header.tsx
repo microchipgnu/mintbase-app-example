@@ -2,12 +2,13 @@ import Link from 'next/link'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 import Image from 'next/image'
 import logo from '../public/images/logo.png'
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 
 const Header = () => {
   const { wallet, isConnected, details } = useWallet()
   return (
-    <header className="fontFamily headerstyle">
+    <header className="fontFamily headerstyle ">
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
         <Link href="/" passHref>
           <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
@@ -35,6 +36,7 @@ const Header = () => {
                     }
               }
             >
+              <AccountBalanceWalletIcon  className='mr-4'/>
               {isConnected ? 'Disconnect' : 'Connect'}
             </button>
           </div>

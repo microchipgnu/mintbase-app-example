@@ -1,8 +1,11 @@
 import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
-import { useWallet } from '../../services/providers/MintbaseWalletContext'
-import { Player, BigPlayButton } from 'video-react';
+import { useWallet } from '../../services/providers/MintbaseWalletContext';
+// import { Player, BigPlayButton } from 'video-react';
+import { Thing } from '../../interfaces/thing.interface';
+import Player from '../../components/Player';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 var _nearApiJs = require("near-api-js");
 
@@ -32,7 +35,7 @@ query MyQuery($thing_id: String!) {
 
 
 const Product = ({ thing_id }: { thing_id: string }) => {
-    const [things, setThing] = useState<any>([])
+    const [things, setThing] = useState<Thing[]>([])
     const { wallet, isConnected } = useWallet();
     const [bid, setBid] = useState('0')
 
@@ -45,20 +48,19 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     useEffect(() => {
         getTokens({
             variables: {
-                thing_id: thing_id
+                thing_id
             },
         })
     }, [])
 
     useEffect(() => {
-        if (!tokensData) return
-        const thing = tokensData.thing.map((thing: any) => thing)
-        setThing(thing)
+        if (!tokensData) return;
+        setThing(tokensData.thing)
     }, [tokensData])
 
     var tokenPriceNumber
     var price, tokenPrice: string
-    things.map((thing: any) => {
+    things.map((thing: Thing) => {
         tokenPriceNumber = Number(thing.tokens[0].list.price)
         //format keep on giving error without the map implementation, why?
         price = _nearApiJs.utils.format.formatNearAmount((tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false }), 2)
@@ -87,10 +89,10 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
     return (
         <>
-            <main className="my-8">
+            <main className="pt-12 my-8 -pb-2 h-screen ">
                 <div className="container mx-auto px-6">
-                    <div className="md:flex md:items-center">
-                        <div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3 divide-x">
+                    <div className=" xl:flex lg:flex md:block sm:block md:h-full md:justify-center">
+                        <div className=" xl:w-1/2 xl:h-full lg:w-2/3 md:w-4/5 ">
                             {!loadingTokensData &&
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -99,29 +101,33 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             alt={things[0]?.metadata.title} />
                                     }
 
-                                    {things[0]?.metadata.animation_type &&
-                                        < Player
-                                            playsInline={false}
-                                            poster={things[0]?.metadata.media}
-                                            src={things[0]?.metadata.animation_url}
-                                            className="items-center"
-                                        >
-                                            <BigPlayButton position="center" />
-                                        </Player>
+                                    {things[0]?.metadata.animation_type &&                                        
+                                        <div id="responsiveVideoWrapper" className="video-size">
+                                            <Player src={things[0]?.metadata.animation_url}></Player>
+                                        </div>
                                     }
                                     <div className="divider divider-vertical"></div>
                                 </>
                             }
                         </div>
-                        <div className="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                            <h3 className="text-gray-700 uppercase text-lg">{things[0]?.metadata.title}</h3>
+                        <div className="priceTag">
+                            <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
 
 
                             {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                 <>
-                                    <span className="text-gray-500 mt-3">{price} Near</span>
-                                    <div className="flex items-center mt-6">
-                                        <button className="fontFamily buyButton" onClick={buy}>Buy</button>
+                                    <div className='xl:pt-14 xl:pb-5 lg:pt-11 lg:pb-5 md:py-5 sm:py-8'>
+                                        <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
+                                        <span className=" text-xl  flex flex-col sm:flex-row m-5 justify-start  items-center">
+                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 '/>
+                                            <span className='px-2'>{price} </span>
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
+                                        <button className="fontFamily buyButton" onClick={buy}>
+                                        <AccountBalanceWalletIcon  className='mr-4'/>
+                                            Buy
+                                        </button>
                                     </div>
                                 </>
                             }

@@ -8,7 +8,6 @@ import BasicTabs from '../components/BasicTabs'
 import { useWallet } from '../services/providers/MintbaseWalletContext'
 //import Access from '../components/access'
 import client from '../public/data/client.json'
-
 const Home = () => {
   //const { wallet, isConnected, details } = useWallet()
   return (

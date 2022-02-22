@@ -10,7 +10,7 @@ font-family: mintingmusic;
   @apply w-full px-6 bg-[#231F20] uppercase
 }
 .footerstyle{
-  @apply w-full px-6 border-t fixed inset-x-0 bottom-0 bg-[#231F20] text-white uppercase
+  @apply w-full px-6 border-t  inset-x-0 bottom-0 bg-[#231F20] text-white uppercase
 }
 .footerLink{
   @apply text-white no-underline hover:underline ml-4
@@ -19,7 +19,7 @@ font-family: mintingmusic;
   font-family: mintingmusic;
 }
 .buyButton{
-  @apply bg-[#B1DBBB] border-none rounded-md text-black text-center inline-block uppercase w-52 h-12 m-2 
+  @apply bg-[#B1DBBB] border-none rounded-md text-black text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#b1e6be]
 }
 .headerBtn{
   @apply bg-[#B1DBBB] border-none rounded-md text-center uppercase w-52 h-12 inline-block no-underline text-black text-sm py-2 px-3
@@ -30,11 +30,20 @@ font-family: mintingmusic;
 .heroP{
   @apply text-lg md:text-lg text-center text-white 
 }
-.videos{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.priceTag{
+  @apply  p-2 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:ml-8 md:w-1/2 
 }
+.screenTest{
+  @apply  xl:bg-yellow-300 lg:bg-green-300 md:bg-purple-300 sm:bg-orange-700 
+}
+.video-size{
+  object-fit: contain;
+  cursor: pointer;
+}
+/* .test{
+  background-image: url(images/near-protocol-near-logo.png);
+} */
+
 
 
 .details {
