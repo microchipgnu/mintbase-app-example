@@ -1,8 +1,6 @@
-import { useState } from 'react';
-function Player({src}: {src: string}) {
-    const [playIcon, setPlayIcon] = useState<string>('play');
-    const [volumeIcon, setVolumeIcon] = useState<string>('sound');
+function Player({src, thumbnail}: {src: string, thumbnail: string}) {
 
+<<<<<<< HEAD
 
     const playPause = (e: any) => {
         e.stopPropagation()
@@ -22,6 +20,25 @@ function Player({src}: {src: string}) {
       </div>      
 
     );
+=======
+    return (
+        <div className="">
+            <div className="">
+            <video id="video" poster={thumbnail} controls controlsList="nodownload">
+                <source src={src}/>
+            </video>
+            </div>
+            <style jsx>
+                {`
+                    video[poster] {
+                        height: 17em;
+                        object-fit: cover
+                    }
+                `}
+            </style>
+        </div>
+     );
+>>>>>>> c6f2a634e9becce56e88acf7e85080c302be153c
 }
 
 export default Player;

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
-import Link from 'next/link'
 import React from 'react'
 import client from '../public/data/client.json'
 import { Player, BigPlayButton } from 'video-react';
 import 'video-react/dist/video-react.css';
 import { ProductMeta, Token } from '../interfaces/thing.interface';
+<<<<<<< HEAD
 // import Player from './Player'
+=======
+import NFT from './NFT'
+>>>>>>> c6f2a634e9becce56e88acf7e85080c302be153c
 
-var _nearApiJs = require("near-api-js");
 
 
 const FETCH_TOKENS = gql`
@@ -38,6 +40,7 @@ query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
     }
 }`
 
+<<<<<<< HEAD
 const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: { thing_id: string; media: string; title: string; animation_url: string; animation_type: string, tokens: Token[] }) => {
 
   const tokenPriceNumber = Number(tokens[0].list.price);
@@ -109,6 +112,8 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
     </div >
   )
 }
+=======
+>>>>>>> c6f2a634e9becce56e88acf7e85080c302be153c
 
 
 
@@ -142,26 +147,20 @@ const Products = ({ storeId }: { storeId: string }) => {
 
   return (
     <>
-      <div className="bg-fixed bg-gradient-to-r from-slate-50 to-slate-100 w-full px-6 py-10 bg-gray-100 border-t">
-        <>
-          <h1 className="drop-shadow-lg text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
-            {client.Title} Near Store
-          </h1>
-          <div className="container mx-auto pb-10 justify-center">
-            <div className="flex flex-wrap">
-              {metaData.map((meta: ProductMeta) => (
-                <NFT
-                  thing_id={meta.thing.id}
-                  media={meta.media}
-                  title={meta.title}
-                  animation_url={meta.animation_url}
-                  animation_type={meta.animation_type}
-                  tokens={meta.thing.tokens}
-                />
-              ))}
-            </div>
-          </div>
-        </>
+
+      <div className="pt-6 pb-24 w-full mx-auto">
+        <div className="grid sm:grid-cols-2  md:grid-cols-3">
+          {metaData.map((meta: ProductMeta) => (
+            <NFT
+              thing_id={meta.thing.id}
+              media={meta.media}
+              title={meta.title}
+              animation_url={meta.animation_url}
+              animation_type={meta.animation_type}
+              tokens={meta.thing.tokens}
+            />
+          ))}
+        </div>
       </div>
     </>
   )
