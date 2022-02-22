@@ -7,7 +7,7 @@ import logo from '../public/images/logo.png'
 const Header = () => {
   const { wallet, isConnected, details } = useWallet()
   return (
-    <header className="w-full px-6 headerstyle">
+    <header className="fontFamily headerstyle">
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
         <Link href="/" passHref>
           <a className="text-lg py-6 w-full text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
@@ -23,7 +23,7 @@ const Header = () => {
               </p>
             )}
             <button
-              className="inline-block no-underline bg-black text-white text-sm py-2 px-3"
+              className="headerBtn"
               onClick={
                 isConnected
                   ? () => {
