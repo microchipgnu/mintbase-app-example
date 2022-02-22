@@ -70,7 +70,7 @@ font-family: mintingmusic;
 .header-bg {
   background-color:#0f0e13;
   background-image:
-  radial-gradient(at 0% 0%, rgb(71, 87, 134) 0, transparent 50%),
+  radial-gradient(at 0% 0%, #3b3b3b 0, transparent 50%),
     radial-gradient(at 100% 100%, #3b3b3b 0, transparent 50%);
 }
 
