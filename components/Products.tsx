@@ -4,6 +4,7 @@ import { useLazyQuery } from '@apollo/client'
 import React from 'react'
 import { ProductMeta } from '../interfaces/thing.interface';
 import NFT from './NFT'
+import Loader from './Loader';
 
 
 
@@ -66,7 +67,7 @@ const Products = ({ storeId }: { storeId: string }) => {
 
   return (
     <>
-
+    {loadingTokensData && <Loader/>}
       <div className="pt-6 pb-24 w-full mx-auto">
         <div className="grid sm:grid-cols-2  md:grid-cols-3">
           {metaData.map((meta: ProductMeta) => (

@@ -6,6 +6,7 @@ import { useWallet } from '../../services/providers/MintbaseWalletContext';
 import { Thing } from '../../interfaces/thing.interface';
 import Player from '../../components/Player';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import Loader from '../../components/Loader';
 
 var _nearApiJs = require("near-api-js");
 
@@ -93,6 +94,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                 <div className="container mx-auto px-6">
                     <div className=" xl:flex lg:flex md:block sm:block md:h-full md:justify-center">
                         <div className=" xl:w-1/2 xl:h-full lg:w-2/3 md:w-4/5 ">
+                        {loadingTokensData && <Loader/>}
+
                             {!loadingTokensData &&
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -103,7 +106,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
                                     {things[0]?.metadata.animation_type &&                                        
                                         <div id="responsiveVideoWrapper" className="video-size">
-                                            <Player src={things[0]?.metadata.animation_url}></Player>
+                                            <Player src={things[0].metadata.animation_url} thumbnail={things[0]?.metadata.media}></Player>
                                         </div>
                                     }
                                     <div className="divider divider-vertical"></div>
