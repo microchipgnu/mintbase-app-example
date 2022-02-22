@@ -6,7 +6,7 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 
 const Header = () => {
-  const { wallet, isConnected, details } = useWallet()
+  const { wallet, isConnected } = useWallet()
   return (
     <header className="fontFamily header-bg py-2 px-2">
       <div className="container mx-auto max-w-8xl md:flex justify-between items-center">
