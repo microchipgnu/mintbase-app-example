@@ -1,26 +1,5 @@
 function Player({src, thumbnail}: {src: string, thumbnail: string}) {
 
-<<<<<<< HEAD
-
-    const playPause = (e: any) => {
-        e.stopPropagation()
-        playIcon == 'play' ?  setPlayIcon('pause') : setPlayIcon('play')   
-    }
-
-    const muteUnmute = (e: any) => {
-        e.stopPropagation()
-        volumeIcon == 'sound' ?  setVolumeIcon('mute') : setVolumeIcon('sound')   
-    }
-
-    return ( 
-      <div className="">
-        <video id="video-size" controls autoPlay muted loop className='video-size rounded-md'>
-          <source src={src}/>
-        </video>
-      </div>      
-
-    );
-=======
     return (
         <div className="">
             <div className="">
@@ -38,7 +17,6 @@ function Player({src, thumbnail}: {src: string, thumbnail: string}) {
             </style>
         </div>
      );
->>>>>>> c6f2a634e9becce56e88acf7e85080c302be153c
 }
 
 export default Player;
