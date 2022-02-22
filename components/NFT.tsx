@@ -24,7 +24,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
     // CDN the url, it will be faster
     return (
   
-      <div className="mb-6 mx-auto">
+      <div className="mb-6 mx-auto cursor-pointer">
         <Link
           href={{
             pathname: '/thing/[thing_id]',
