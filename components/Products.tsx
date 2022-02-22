@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react'
 import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import React from 'react'
-import client from '../public/data/client.json'
-import { Player, BigPlayButton } from 'video-react';
-import 'video-react/dist/video-react.css';
-import { ProductMeta, Token } from '../interfaces/thing.interface';
+import { ProductMeta } from '../interfaces/thing.interface';
 import NFT from './NFT'
 
 
