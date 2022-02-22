@@ -4,8 +4,10 @@ import { useLazyQuery } from '@apollo/client'
 import Link from 'next/link'
 import React from 'react'
 import client from '../public/data/client.json'
-import { Player, BigPlayButton } from 'video-react';
+// import { Player, BigPlayButton } from 'video-react';
 import 'video-react/dist/video-react.css';
+import { ProductMeta, Token } from '../interfaces/thing.interface';
+import Player from './Player'
 
 var _nearApiJs = require("near-api-js");
 
@@ -36,7 +38,7 @@ query FetchTokensByStoreId($storeId: String!, $limit: Int, $offset: Int) {
     }
 }`
 
-const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: { thing_id: string; media: string; title: string; animation_url: string; animation_type: string, tokens: [Token] }) => {
+const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: { thing_id: string; media: string; title: string; animation_url: string; animation_type: string, tokens: Token[] }) => {
 
   const tokenPriceNumber = Number(tokens[0].list.price);
   // Number.toLocaleString() rounds after 16 decimal places, so be careful
@@ -64,8 +66,8 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
         }}
         as={`thing/${thing_id}`}
       >
-        <div className="transition ease-in-out hover:scale-105 max-w-sm rounded overflow-hidden shadow-lg m-2 px-3">
-          <div>
+        <div className="transition ease-in-out hover:scale-105 max-w-sm rounded overflow-hidden shadow-lg max-h-72 m-2 px-3 h-full mb-12 bg-gray-50">
+          <div className="p-4">
 
             {!animation_type &&
               <img className="w-full"
@@ -75,25 +77,31 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
             }
 
             {animation_type &&
-              < Player
-                playsInline={false}
-                poster={media}
-                src={animation_url}
-                className="items-center"
-              >
-                <BigPlayButton position="center" />
-              </Player>
+              // < Player
+              //   playsInline={false}
+              //   poster={media}
+              //   src={animation_url}
+              //   className="items-center"
+              // >
+              //   <BigPlayButton position="center" />
+              // </Player>
+
+              <div className="">
+                <Player src={animation_url}></Player>
+              </div>
             }
 
-            <div className="px-30 py-2">
-              <div className="text-left font-bold text-lg">{title}</div>
-              {tokens[0].list.autotransfer &&
-                <div className="text-right font-bold text-base my-2">Price: {price} Near</div>
-              }
-              {/* Put a small auction symbol here */}
-              {!tokens[0].list.autotransfer &&
-                <div className="text-right font-bold text-base my-2">Bid: {currentBid} Near</div>
-              }
+            <div className="px-30 mt-2 flex justify-between my-auto">
+              <div className="font-bold text-lg">{title}</div>
+              <>
+                {tokens[0].list.autotransfer &&
+                  <div className="font-bold text-base my-2">Price: {price} Near</div>
+                }
+                {/* Put a small auction symbol here */}
+                {!tokens[0].list.autotransfer &&
+                  <div className="font-bold text-base my-2">Bid: {currentBid} Near</div>
+                }
+              </>
             </div>
           </div>
         </div>
@@ -102,32 +110,10 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
   )
 }
 
-type Token = {
-  id: string
-  list: {
-    price: string
-    autotransfer: boolean
-    offer: {
-      price: string
-    }
-  }
-}
-
-type MetaData = {
-  id: string
-  media: string
-  animation_url: string
-  title: string
-  animation_type: string
-  thing: {
-    id: string
-    tokens: [Token]
-  }
-}
 
 
 const Products = ({ storeId }: { storeId: string }) => {
-  const [metaData, setMetaData] = useState<any>([])
+  const [metaData, setMetaData] = useState<ProductMeta[]>([])
 
   const [getTokens, { loading: loadingTokensData, data: tokensData, fetchMore }] =
     useLazyQuery(FETCH_TOKENS, {
@@ -150,9 +136,8 @@ const Products = ({ storeId }: { storeId: string }) => {
   }, [])
 
   useEffect(() => {
-    if (!tokensData) return
-    const metadata = tokensData.metadata.map((metadata: any) => metadata)
-    setMetaData(metadata)
+    if (!tokensData) return;
+    setMetaData(tokensData.metadata)
   }, [tokensData])
 
   return (
@@ -164,7 +149,7 @@ const Products = ({ storeId }: { storeId: string }) => {
           </h1>
           <div className="container mx-auto pb-10 justify-center">
             <div className="flex flex-wrap">
-              {metaData.map((meta: MetaData) => (
+              {metaData.map((meta: ProductMeta) => (
                 <NFT
                   thing_id={meta.thing.id}
                   media={meta.media}

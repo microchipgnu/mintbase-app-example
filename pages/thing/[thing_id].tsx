@@ -1,8 +1,9 @@
 import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
-import { useWallet } from '../../services/providers/MintbaseWalletContext'
+import { useWallet } from '../../services/providers/MintbaseWalletContext';
 import { Player, BigPlayButton } from 'video-react';
+import { Thing } from '../../interfaces/thing.interface';
 
 var _nearApiJs = require("near-api-js");
 
@@ -32,7 +33,7 @@ query MyQuery($thing_id: String!) {
 
 
 const Product = ({ thing_id }: { thing_id: string }) => {
-    const [things, setThing] = useState<any>([])
+    const [things, setThing] = useState<Thing[]>([])
     const { wallet, isConnected } = useWallet();
     const [bid, setBid] = useState('0')
 
@@ -45,20 +46,19 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     useEffect(() => {
         getTokens({
             variables: {
-                thing_id: thing_id
+                thing_id
             },
         })
     }, [])
 
     useEffect(() => {
-        if (!tokensData) return
-        const thing = tokensData.thing.map((thing: any) => thing)
-        setThing(thing)
+        if (!tokensData) return;
+        setThing(tokensData.thing)
     }, [tokensData])
 
     var tokenPriceNumber
     var price, tokenPrice: string
-    things.map((thing: any) => {
+    things.map((thing: Thing) => {
         tokenPriceNumber = Number(thing.tokens[0].list.price)
         //format keep on giving error without the map implementation, why?
         price = _nearApiJs.utils.format.formatNearAmount((tokenPriceNumber).toLocaleString('fullwide', { useGrouping: false }), 2)
