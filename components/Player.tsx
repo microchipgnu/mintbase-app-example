@@ -3,18 +3,18 @@ function Player({src, thumbnail}: {src?: string, thumbnail: string}) {
     return (
         <div className="">
             <div className="">
-            <video id="video" poster={thumbnail} controls controlsList="nodownload">
+              <video id="video" poster={thumbnail} controls controlsList="nodownload">
                 <source src={src}/>
-            </video>
+              </video>
             </div>
-            <style jsx>
+            {/* <style jsx>
                 {`
                     video[poster] {
                         height: 17em;
                         object-fit: cover
                     }
-                `}
-            </style>
+                `}  
+            </style> */}
         </div>
      );
 }

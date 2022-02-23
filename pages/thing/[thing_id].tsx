@@ -7,6 +7,7 @@ import { Thing } from '../../interfaces/thing.interface';
 import Player from '../../components/Player';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import Loader from '../../components/Loader';
+import Gavel from '@material-ui/icons/Gavel';
 
 var _nearApiJs = require("near-api-js");
 
@@ -90,7 +91,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
     return (
         <>
-            <main className="pt-12 my-8 -pb-2 h-screen ">
+            <main className="pt-24 my-8 -pb-2 h-screen ">
                 <div className="container mx-auto px-6">
                     <div className=" xl:flex lg:flex md:block sm:block md:h-full md:justify-center">
                         <div className=" xl:w-1/2 xl:h-full lg:w-2/3 md:w-4/5 ">
@@ -121,8 +122,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                 <>
                                     <div className='xl:pt-14 xl:pb-5 lg:pt-11 lg:pb-5 md:py-5 sm:py-8'>
                                         <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
-                                        <span className=" text-xl  flex flex-col sm:flex-row m-5 justify-start  items-center">
-                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 '/>
+                                        <span className=" text-xl object-contain flex flex-col sm:flex-row m-5 justify-start  items-center">
+                                            <img src="../images/near.png" alt="here" className='w-4 h-4 '/>
                                             <span className='px-2'>{price} </span>
                                         </span>
                                     </div>
@@ -143,7 +144,9 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                         <input value={bid} type="number" onChange={e => setBid(e.target.value)} />
                                     </div>
                                     <div className="flex items-center mt-3">
-                                        <button className="buyButton" onClick={buy}>Bid</button>
+                                        <button className="buyButton" onClick={buy}>
+                                        <Gavel className='mr-2' /> 
+                                            Bid</button>
                                     </div>
                                 </>
                             }
