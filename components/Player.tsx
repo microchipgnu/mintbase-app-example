@@ -1,20 +1,31 @@
-function Player({ src, thumbnail }: { src?: string, thumbnail: string }) {
+import styles from '../public/modules/player.module.css'
+
+function Player({ src, thumbnail, size }: { src?: string, thumbnail: string, size: string }) {
+
+    
+    function getStyle() {
+           if (size === 'big') return styles['big-player']
+           else return styles['small-player']
+    }
+
+    console.log(getStyle());
+    
 
     return (
-        <div className="">
+        <div className=''>
             <div className="">
-                <video id="video" poster={thumbnail} controls controlsList="nodownload">
+                <video id="video" className={getStyle()} poster={thumbnail} controls controlsList="nodownload">
                     <source src={src} />
                 </video>
             </div>
-            <style jsx>
+            {/* <style jsx>
                 {`
                     video[poster] {
                         height: 17em;
-                        object-fit: cover
+                        object-fit: contain
                     }
                 `}
-            </style>
+            </style> */}
         </div>
     );
 }
