@@ -99,7 +99,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                             {!loadingTokensData &&
                                 <>
                                     {!things[0]?.metadata.animation_type &&
-                                        <img className="w-full"
+                                        <img className="w-full max-h-96 object-contain"
                                             src={things[0]?.metadata.media}
                                             alt={things[0]?.metadata.title} />
                                     }
@@ -121,8 +121,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                 <>
                                     <div className='xl:pt-14 xl:pb-5 lg:pt-11 lg:pb-5 md:py-5 sm:py-8'>
                                         <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
-                                        <span className=" text-xl  flex flex-col sm:flex-row m-5 justify-start  items-center">
-                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 ' />
+                                        <span className=" text-xl flex m-5 justify-start">
+                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 my-auto' />
                                             <span className='px-2'>{price} </span>
                                         </span>
                                     </div>
