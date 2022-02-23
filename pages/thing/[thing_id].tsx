@@ -94,7 +94,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                 <div className="container mx-auto px-6">
                     <div className=" xl:flex lg:flex md:block sm:block md:h-full md:justify-center">
                         <div className=" xl:w-1/2 xl:h-full lg:w-2/3 md:w-4/5 ">
-                        {loadingTokensData && <Loader/>}
+                            {loadingTokensData && <Loader />}
 
                             {!loadingTokensData &&
                                 <>
@@ -104,9 +104,9 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                             alt={things[0]?.metadata.title} />
                                     }
 
-                                    {things[0]?.metadata.animation_type &&                                        
+                                    {things[0]?.metadata.animation_type &&
                                         <div id="responsiveVideoWrapper" className="video-size">
-                                            <Player src={things[0].metadata.animation_url} thumbnail={things[0]?.metadata.media}></Player>
+                                            <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media}></Player>
                                         </div>
                                     }
                                     <div className="divider divider-vertical"></div>
@@ -122,13 +122,13 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     <div className='xl:pt-14 xl:pb-5 lg:pt-11 lg:pb-5 md:py-5 sm:py-8'>
                                         <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
                                         <span className=" text-xl  flex flex-col sm:flex-row m-5 justify-start  items-center">
-                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 '/>
+                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 ' />
                                             <span className='px-2'>{price} </span>
                                         </span>
                                     </div>
                                     <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
                                         <button className="fontFamily buyButton" onClick={buy}>
-                                        <AccountBalanceWalletIcon  className='mr-4'/>
+                                            <AccountBalanceWalletIcon className='mr-4' />
                                             Buy
                                         </button>
                                     </div>
