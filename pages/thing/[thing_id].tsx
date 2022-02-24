@@ -126,7 +126,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                 
                             
                         </div>
-                        <div className="priceTag w-full">
+                        <div className="priceTag w-full mb-12">
 
                         <div className='w-full'>
                             <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
@@ -141,9 +141,9 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                             <div className='text-gray-500 mt-2 text-sm'>
                                <p>Store ID: {things[0]?.storeId} </p>
 
-                               <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Link</a></p>
+                               <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
 
-                                <p><a className='text-blue-400' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank">Arweave Link</a></p>
+                                <p><a className='text-blue-400' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
 
                                 <p>Tokens: {things[0]?.tokens.length} </p>
 
