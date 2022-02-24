@@ -24,7 +24,7 @@ function Player({ src, thumbnail, size }: { src?: string, thumbnail: string, siz
                         height: 17em;
                         object-fit: contain
                     }
-                `}
+                `}  
             </style> */}
         </div>
     );

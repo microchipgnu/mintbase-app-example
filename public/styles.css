@@ -22,7 +22,8 @@ font-family: mintingmusic;
   @apply bg-[#3b3b3b] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#212121]
 }
 .headerBtn{
-  @apply bg-[#3b3b3b]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-3 hover:bg-[#212121]
+  @apply bg-[#3b3b3b]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#212121]
+/* >>>>>>> 9d5ed7c... working on mobile responsiveness */
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
@@ -36,11 +37,17 @@ font-family: mintingmusic;
 .screenTest{
   @apply  xl:bg-yellow-300 lg:bg-green-300 md:bg-purple-300 sm:bg-orange-700 
 }
-/* .video-size{
+.video-size{
   object-fit: contain;
   cursor: pointer;
-  height: 35rem;
-} */
+}
+.fixedHeader{
+  @apply fixed header-bg z-50 w-full top-0 sm:p-1
+}
+
+  /* height: 35rem;
+}  */
+
 /* .test{
   background-image: url(images/near-protocol-near-logo.png);
 } */

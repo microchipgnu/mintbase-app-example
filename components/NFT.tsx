@@ -3,6 +3,7 @@ import React from 'react'
 import 'video-react/dist/video-react.css';
 import { Token } from '../interfaces/thing.interface';
 import Player from './Player'
+import Gavel from '@material-ui/icons/Gavel';
 
 var _nearApiJs = require("near-api-js");
 
@@ -54,11 +55,13 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
                 <div className="font-black text-lg">{title}</div>
                 <>
                   {tokens[0].list.autotransfer &&
-                    <div className="font-thin text-base my-2">Price: {price} Near</div>
+                    <div className="font-thin text-base my-2 flex items-center justify-center"> <img src="../images/near.png" alt="here" className='w-4 mx-2'/>  {price} </div>
                   }
                   {/* Put a small auction symbol here */}
                   {!tokens[0].list.autotransfer &&
-                    <div className="font-thin text-base my-2">Bid: {currentBid} Near</div>
+                    <div className="font-thin text-base my-2 px-2 ">
+                      <Gavel className='mx-2' /> 
+                       {currentBid} Near</div>
                   }
                 </>
               </div>
