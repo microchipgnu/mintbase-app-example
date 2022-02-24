@@ -8,7 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useState } from 'react';
 
 const Header = () => {
-  let [navState, SetNavState] = useState(false)
+  let [navState, SetNavState] = useState(true)
   const hidden = () => {
     SetNavState(!navState)
     let show = document.querySelector('.navMobile')
@@ -28,12 +28,12 @@ const Header = () => {
         </Link>
 
         <div className=" md:mb-0 text-center md:text-right  ">
-          <span className='xl:hidden lg:hidden md:hidden ' onClick={hidden}>
-            {navState ? <MenuIcon className=' '/> : <CloseIcon className=''/>}
+          <span className='md:hidden p-8' onClick={hidden}>
+            {navState ? <MenuIcon className='text-white'/> : <CloseIcon className='text-white'/>}
           </span>
-          <div className="navMobile hidden md:flex  md:p-3 sm:p-4 xl:bg-transparent lg:bg-transparent md:bg-white sm:bg-white -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between">
+          <div className="navMobile hidden md:flex p-4 z-50 bg-[#3b3b3b] md:bg-transparent -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between">
             {isConnected && (
-              <p className="text-lg py-4 px-8 font-semibold text-white md:text-black sm:text-black">
+              <p className="text-lg py-4 px-8 font-semibold text-white">
                 {wallet?.activeAccount?.accountId}
               </p>
             )}
