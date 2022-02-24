@@ -9,6 +9,10 @@ export interface ThingMetadata {
     animation_url: string | null;
     media: string;
     title: string;
+    description: string;
+    tags: string;
+    external_url: string;
+    category: string;
     __typename?: string;
 }
 
@@ -22,11 +26,13 @@ interface List {
 export interface Token {
     id: string;
     list: List;
+    txId?: string;
     __typename?: string;
 }
 
 export interface Thing {
     thing_id: string;
+    storeId: string;
     metadata
     : ThingMetadata;
     tokens: Token[];

@@ -32,19 +32,24 @@ font-family: mintingmusic;
   @apply text-lg md:text-lg text-center text-white 
 }
 .priceTag{
-  @apply  p-2 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:ml-8 md:w-1/2 
+  @apply  p-2 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:ml-8 md:w-1/2 mt-4 md:mt-0  shadow-2xl
 }
 .screenTest{
   @apply  xl:bg-yellow-300 lg:bg-green-300 md:bg-purple-300 sm:bg-orange-700 
 }
-.video-size{
+/* .video-size{
   object-fit: contain;
   cursor: pointer;
+<<<<<<< HEAD
 }
 .fixedHeader{
   @apply xl:fixed header-bg lg:fixed md:fixed xl:z-50 lg:z-50 md:z-50 xl:w-full lg:w-full md:w-full xl:top-0 sm:p-1
 }
 
+=======
+  height: 35rem;
+} */
+>>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
 /* .test{
   background-image: url(images/near-protocol-near-logo.png);
 } */

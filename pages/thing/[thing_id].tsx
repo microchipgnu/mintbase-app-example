@@ -12,7 +12,7 @@ import Gavel from '@material-ui/icons/Gavel';
 var _nearApiJs = require("near-api-js");
 
 const FETCH_TOKEN = gql`
-query MyQuery($thing_id: String!) {
+query MyQuery ($thing_id: String!) {
     thing(where: {id: {_eq: $thing_id}}) {
       id
       tokens(distinct_on: id, where: {list: {removedAt: {_is_null: true}}}) {
@@ -24,15 +24,21 @@ query MyQuery($thing_id: String!) {
             price
           }
         }
+        txId
       }
+      storeId
       metadata {
         animation_type
         animation_url
         media
         title
+        description
+        tags
+        external_url
+        category
       }
     }
-}`
+  }`
 
 
 
@@ -91,45 +97,79 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
     return (
         <>
+<<<<<<< HEAD
             <main className="pt-24 my-8 -pb-2 h-screen ">
                 <div className="container mx-auto px-6">
                     <div className=" xl:flex lg:flex md:block sm:block md:h-full md:justify-center">
                         <div className=" xl:w-1/2 xl:h-full lg:w-2/3 md:w-4/5 ">
                         {loadingTokensData && <Loader/>}
+=======
+        {loadingTokensData && <Loader />}
+>>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
 
-                            {!loadingTokensData &&
+        {!loadingTokensData &&
+            <main className="py-4 my-4 ">
+                <div className="container mx-auto px-6">
+                    <div className="block md:flex md:justify-center">
+                        <div className=" xl:w-1/2 lg:w-2/3 md:w-4/5 shadow-2xl">
+                            
                                 <>
                                     {!things[0]?.metadata.animation_type &&
-                                        <img className="w-full"
+                                        <img width="500px" className=" object-contain mx-auto"
                                             src={things[0]?.metadata.media}
                                             alt={things[0]?.metadata.title} />
                                     }
 
-                                    {things[0]?.metadata.animation_type &&                                        
-                                        <div id="responsiveVideoWrapper" className="video-size">
-                                            <Player src={things[0].metadata.animation_url} thumbnail={things[0]?.metadata.media}></Player>
+                                    {things[0]?.metadata.animation_type &&
+                                        <div id="responsiveVideoWrapper" className="shadow-xl ">
+                                            <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
                                         </div>
                                     }
                                     <div className="divider divider-vertical"></div>
                                 </>
-                            }
+                            
                         </div>
                         <div className="priceTag">
+
                             <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
+
+                            <div className='text-gray-500 mt-12 text-sm mx-5'>
+                               <p>Store ID: {things[0]?.storeId} </p>
+
+                                <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Link</a></p>
+
+                                <p><a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank">Arweave Link</a></p>
+
+                                <p>Tokens: {things[0]?.tokens.length} </p>
+
+                                <p>description: {things[0]?.metadata.description} </p>
+
+                                <p>externall URL :<a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank"> {things[0]?.metadata.external_url}</a> </p>
+
+                                {/* tags: {things[0]?.metadata.tags} <br /> */}
+
+                                <p>category: {things[0]?.metadata.category || 'Not Available'}</p>
+
+                            </div>
 
 
                             {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                 <>
-                                    <div className='xl:pt-14 xl:pb-5 lg:pt-11 lg:pb-5 md:py-5 sm:py-8'>
+                                    <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8'>
                                         <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
+<<<<<<< HEAD
                                         <span className=" text-xl object-contain flex flex-col sm:flex-row m-5 justify-start  items-center">
                                             <img src="../images/near.png" alt="here" className='w-4 h-4 '/>
+=======
+                                        <span className=" text-xl flex m-5 justify-start">
+                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 my-auto' />
+>>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
                                             <span className='px-2'>{price} </span>
                                         </span>
                                     </div>
                                     <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
                                         <button className="fontFamily buyButton" onClick={buy}>
-                                        <AccountBalanceWalletIcon  className='mr-4'/>
+                                            <AccountBalanceWalletIcon className='mr-4' />
                                             Buy
                                         </button>
                                     </div>
@@ -139,21 +179,37 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                             {
                                 isConnected && !things[0]?.tokens[0].list.autotransfer &&
                                 <>
-                                    <span className="text-gray-500 mt-3">{currentBid} Near</span>
-                                    <div>
-                                        <input value={bid} type="number" onChange={e => setBid(e.target.value)} />
+                                    <div className='xl:pt-14 xl:pb-5 lg:pt-11 lg:pb-5 md:py-5 sm:py-8'>
+                                        <span className='text-gray-500 mt-12 text-sm mx-5'>current Bid</span> <br />
+                                        <span className=" text-xl flex m-5 justify-start">
+                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 my-auto' />
+                                            <span className='px-2'>{currentBid} </span>
+                                        </span>
                                     </div>
+                                    <div>
+                                        <input value={bid} type="number" onChange={e => setBid(e.target.value)} min="0" className="rounded-full focus:outline-none text-gray-700 py-2" />
+                                    </div>
+<<<<<<< HEAD
                                     <div className="flex items-center mt-3">
                                         <button className="buyButton" onClick={buy}>
                                         <Gavel className='mr-2' /> 
                                             Bid</button>
+=======
+                                    <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
+                                        <button className="fontFamily buyButton" onClick={buy}>
+                                            <AccountBalanceWalletIcon className='mr-4' />
+                                            Buy
+                                        </button>
+>>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
                                     </div>
                                 </>
                             }
+                                        
                         </div>
                     </div>
                 </div>
             </main>
+    }
         </>
     )
 }

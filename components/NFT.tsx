@@ -25,7 +25,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
     // CDN the url, it will be faster
     return (
   
-      <div className="mb-6 mx-auto cursor-pointer">
+      <div className="mb-6 mx-auto cursor-pointer w-4/5 md:w-full">
         <Link
           href={{
             pathname: '/thing/[thing_id]',
@@ -35,19 +35,19 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
           }}
           as={`thing/${thing_id}`}
         >
-          <div className="transition ease-in-out hover:scale-105 m rounded hover:shadow-2xl shadow-lg m-2 px-3 h-full ">
+          <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl shadow-lg m-2 px-3 h-full">
             <div>
   
               {!animation_type &&
-                <img className="w-72 max-h-64 object-cover"
+                <img className="max-h-64 object-contain mx-auto"
                   //src="https://coldcdn.com/api/cdn/bronil/HM9kQpGaqbzqugnArmkC0Dej5U5yKYT4RPvw6r1SELQ"//{media}
                   src={media}//"https://arweave.net/HM9kQpGaqbzqugnArmkC0Dej5U5yKYT4RPvw6r1SELQ"//{media}
                   alt={title} />
               }
   
               {animation_type &&
-                <div className="max-h-64 max-w-72">
-                  <Player src={animation_url} thumbnail={media}></Player>
+                <div className="max-h-64 mx-auto">
+                  <Player src={animation_url} thumbnail={media} size={'small'}></Player>
                 </div>
               }
   
