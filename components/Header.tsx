@@ -23,7 +23,7 @@ const Header = () => {
       <div className="flex container mx-auto max-w-8xl sm:flex sm:justify-between md:flex xl:px-5 lg:px-6 justify-between items-center ">
         <Link href="/" passHref>
           <a className="text-lg py-6  text-center font-semibold md:text-left md:w-auto no-underline flex justify-center items-center">
-            <Image src={logo} />
+            <Image src={logo} alt="cover" />
           </a>
         </Link>
 

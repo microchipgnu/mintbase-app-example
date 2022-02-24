@@ -10,7 +10,7 @@ export interface ThingMetadata {
     media: string;
     title: string;
     description: string;
-    tags: string;
+    tags: [];
     external_url: string;
     category: string;
     __typename?: string;
@@ -33,6 +33,7 @@ export interface Token {
 export interface Thing {
     thing_id: string;
     storeId: string;
+    store: {name: string};
     metadata
     : ThingMetadata;
     tokens: Token[];

@@ -35,7 +35,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
           }}
           as={`thing/${thing_id}`}
         >
-          <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl shadow-lg h-full  pb-2">
+          <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl px-2 shadow-lg h-full  pb-2">
             <div>
   
               {!animation_type &&

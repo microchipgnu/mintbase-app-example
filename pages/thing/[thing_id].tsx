@@ -27,6 +27,9 @@ query MyQuery ($thing_id: String!) {
         txId
       }
       storeId
+      store{
+        name
+        }   
       metadata {
         animation_type
         animation_url
@@ -54,6 +57,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
             },
         })
     useEffect(() => {
+        
         getTokens({
             variables: {
                 thing_id
@@ -100,66 +104,57 @@ const Product = ({ thing_id }: { thing_id: string }) => {
         {loadingTokensData && <Loader />}
 
         {!loadingTokensData &&
-            <main className=" py-32 bg-gray-100">
-                <div className="container mx-auto px-6 md:">
-                    <div className="bg:gray-100 lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center">
-                        <div className="   xl:max-w-prose lg:max-w-prose md:max-w-full sm:max-w-full ">
+            <main className="h-screen py-24 bg-gray-100">
+                <div className="container mx-auto md:px-6">
+                    <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
+                        <div className="w-full my-auto">
                             
                                 <>
                                     {!things[0]?.metadata.animation_type &&
-                                        <img width="500px" className=" object-contain mx-auto"
+                                        <img className=" object-contain mx-auto w-96"
                                             src={things[0]?.metadata.media}
                                             alt={things[0]?.metadata.title} />
                                     }
 
                                     {things[0]?.metadata.animation_type &&
-                                        <div id="responsiveVideoWrapper" className=" lg:-mt-52 xl:mt-8 ">
+                                        <div id="responsiveVideoWrapper" className="">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
                                         </div>
                                     }
                                     <div className="divider divider-vertical"></div>
                                 </>
-                                <div className='xl:invisible md:invisible sm:invisible lg:visible w-full p-5'>
-                                    <p className='text-gray-400 py-2'>Owned by: <a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank">Arweave Link</a></p>
-                                    <DescriptionIcon />
-                                    <span className='text-gray-700 text-[18px] pt-2 border-solid border-b-2 border-full border-gray-200'>Desciption</span>
-                                    <p className='p-2'> <span className='storeID'>{things[0]?.metadata.description}</span> </p>
-                                </div>
+                                
                             
                         </div>
-                        <div className="priceTag">
+                        <div className="priceTag w-full mb-12">
 
+                        <div className='w-full'>
                             <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
+                             <p className='text-gray-400 py-2'>Owned by: <span className='storeID'>{things[0]?.store.name}</span> </p>
+                                    <DescriptionIcon />
+                                    <span className='text-gray-700 text-[18px] pt-2 border-solid border-b-2 border-full border-gray-200'>Desciption</span>
 
-                            <div className='text-gray-500 mt-12 text-sm mx-5'>
+                                    <p className='pt-2 h-16 overflow-y-scroll'> <span className='storeID'>{things[0]?.metadata.description}</span> </p>
+                                </div>
+                            
+
+                            <div className='text-gray-500 mt-2 text-sm'>
                                <p>Store ID: {things[0]?.storeId} </p>
 
-                                <p ><a className='text-blue-400' target="_blank" rel="noreferrer" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Link</a></p>
+                               <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
 
-                                <p><a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
+                                <p><a className='text-blue-400' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
 
                                 <p>Tokens: {things[0]?.tokens.length} </p>
 
-                                <p>description: {things[0]?.metadata.description} </p>
-
-                                <p>externall URL :<a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer"> {things[0]?.metadata.external_url}</a> </p>
-
-                            <div className='text-gray-500 text-sm ml-14'>
-
-                                <div className='text-gray-700 text-[18px] '>
-                                    <p>Store ID: <span className='storeID'>{things[0]?.storeId}</span> </p>
-                                    <p>category: <span className='storeID'>{things[0]?.metadata.category || 'Not Available'}</span></p>
-                                    <p>Tokens: <span className='text-black'>{things[0]?.tokens.length}</span> </p>
-                                </div>                                
-
-                            </div>
+                                <p>externall URL :<a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer"> External Link</a> </p>
 
 
                             {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                 <>
-                                    <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8 pl-10'>
-                                        <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
-                                        <span className=" text-xl object-contain flex flex-col sm:flex-row m-5 justify-start  items-center">
+                                    <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8'>
+                                        <span className='text-gray-500 mt-12 text-sm'>current price</span> <br />
+                                        <span className=" text-xl object-contain flex  m-5 justify-start  items-center">
                                             <img src="../images/near.png" alt="here" className='w-4 h-4 '/>
                                             <span className='px-2'>{price} </span>
                                         </span>
@@ -195,9 +190,9 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                             }
                                         
                         </div>
-                        <div className='red-300'></div>
                     </div>
-                </div>               
+                </div>     
+                </div>          
             </main>
     }
         </>
