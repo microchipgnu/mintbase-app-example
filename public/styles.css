@@ -42,7 +42,7 @@ font-family: mintingmusic;
   cursor: pointer;
 }
 .fixedHeader{
-  @apply xl:fixed header-bg lg:fixed md:fixed xl:z-50 lg:z-50 md:z-50 xl:w-full lg:w-full md:w-full xl:top-0 sm:p-1
+  @apply fixed header-bg z-50 w-full top-0 sm:p-1
 }
 
   /* height: 35rem;
