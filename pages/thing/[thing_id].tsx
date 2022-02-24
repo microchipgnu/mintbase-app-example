@@ -128,15 +128,15 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                             <div className='text-gray-500 mt-12 text-sm mx-5'>
                                <p>Store ID: {things[0]?.storeId} </p>
 
-                                <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Link</a></p>
+                                <p ><a className='text-blue-400' target="_blank" rel="noreferrer" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Link</a></p>
 
-                                <p><a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank">Arweave Link</a></p>
+                                <p><a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
 
                                 <p>Tokens: {things[0]?.tokens.length} </p>
 
                                 <p>description: {things[0]?.metadata.description} </p>
 
-                                <p>externall URL :<a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank"> {things[0]?.metadata.external_url}</a> </p>
+                                <p>externall URL :<a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer"> {things[0]?.metadata.external_url}</a> </p>
 
                                 {/* tags: {things[0]?.metadata.tags} <br /> */}
 
