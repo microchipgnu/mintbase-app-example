@@ -11,7 +11,7 @@ function Player({ src, thumbnail, size }: { src?: string, thumbnail: string, siz
     return (
         <div className=''>
             <div className="">
-                <video id="video" className={getStyle()} poster={thumbnail} controls controlsList="nodownload" autoPlay loop muted>
+                <video id="video" className={getStyle()} poster={thumbnail} controls controlsList="nodownload" autoPlay={size=='big'} loop muted>
                     <source src={src} />
                 </video>
             </div>
