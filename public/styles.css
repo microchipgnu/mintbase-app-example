@@ -22,8 +22,7 @@ font-family: mintingmusic;
   @apply bg-[#031844] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#212121]
 }
 .headerBtn{
-  @apply  bg-transparent shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#010613]
-/* >>>>>>> 9d5ed7c... working on mobile responsiveness */
+  @apply bg-[#3b3b3b]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#212121]
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
@@ -32,7 +31,7 @@ font-family: mintingmusic;
   @apply text-lg md:text-lg text-center text-white 
 }
 .priceTag{
-  @apply  p-2 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:ml-8 md:w-1/2 mt-4 md:mt-0  shadow-2xl
+  @apply  p-5 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:max-w-full sm:max-w-full mt-4 
 }
 .video-size{
   object-fit: contain;
@@ -41,16 +40,9 @@ font-family: mintingmusic;
 .fixedHeader{
   @apply fixed header-bg z-50 w-full top-0 sm:p-1
 }
-
-  /* height: 35rem;
-}  */
-
-/* .test{
-  background-image: url(images/near-protocol-near-logo.png);
-} */
-
-
-
+.storeID{
+  @apply text-gray-500
+}
 .details {
   font-family: mintingmusic;
   text-align: start;
