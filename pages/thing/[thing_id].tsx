@@ -100,7 +100,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
         {loadingTokensData && <Loader />}
 
         {!loadingTokensData &&
-            <main className="py-4 my-4 ">
+            <main className="py-4 my-32">
                 <div className="container mx-auto px-6">
                     <div className="block md:flex md:justify-center">
                         <div className=" xl:w-1/2 lg:w-2/3 md:w-4/5 shadow-2xl">
