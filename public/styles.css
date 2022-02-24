@@ -91,8 +91,7 @@ font-family: mintingmusic;
   background-image: radial-gradient(at 4% 36%, rgb(255, 141, 141) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(255, 132, 132) 0, transparent 50%);
   text-shadow: 0 0 1px white,
                0 0 2px white,
-               0 0 5px white;
-               /* 0 0 10px white; */
+               0 0 3px white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
