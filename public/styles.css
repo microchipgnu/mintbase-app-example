@@ -10,7 +10,7 @@ font-family: mintingmusic;
   @apply w-full px-6 bg-[#231F20] uppercase
 } */
 .footerstyle{
-  @apply w-full px-6 border-t  inset-x-0 bottom-0 bg-[#231F20] text-white uppercase
+  @apply w-full px-6 border-t  inset-x-0 bottom-0 footer-bg text-white uppercase
 }
 .footerLink{
   @apply text-white no-underline hover:underline ml-4
@@ -19,10 +19,10 @@ font-family: mintingmusic;
   font-family: mintingmusic;
 }
 .buyButton{
-  @apply bg-[#3b3b3b] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#212121]
+  @apply bg-[#031844] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#212121]
 }
 .headerBtn{
-  @apply bg-[#3b3b3b]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#212121]
+  @apply  bg-transparent shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#010613]
 /* >>>>>>> 9d5ed7c... working on mobile responsiveness */
 }
 .heroH1{
@@ -33,9 +33,6 @@ font-family: mintingmusic;
 }
 .priceTag{
   @apply  p-2 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:ml-8 md:w-1/2 mt-4 md:mt-0  shadow-2xl
-}
-.screenTest{
-  @apply  xl:bg-yellow-300 lg:bg-green-300 md:bg-purple-300 sm:bg-orange-700 
 }
 .video-size{
   object-fit: contain;
@@ -78,13 +75,24 @@ font-family: mintingmusic;
 .header-bg {
   background-color:#0f0e13;
   background-image:
-  radial-gradient(at 0% 0%, #3b3b3b 0, transparent 50%),
-    radial-gradient(at 100% 100%, #3b3b3b 0, transparent 50%);
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(225,39%,25%,1) 0, transparent 50%);
+}
+
+.footer-bg {
+  background-color: #0f0e13;
+  background-image:
+    radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225,39%,25%,1) 0, transparent 50%);
 }
 
 .text-gradient {
-  background-color: #fff;
-  background-image: radial-gradient(at 4% 36%, hsla(0,0%,100%,1) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(0, 0, 0) 0, transparent 50%);
+  background-color: rgb(245, 242, 242);
+  background-image: radial-gradient(at 4% 36%, rgb(255, 141, 141) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(255, 132, 132) 0, transparent 50%);
+  text-shadow: 0 0 1px white,
+               0 0 2px white,
+               0 0 5px white;
+               /* 0 0 10px white; */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

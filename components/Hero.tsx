@@ -3,17 +3,17 @@ const Hero = () => {
   return (
     <>
       <div
-        className="w-full py-24 px-6 bg-cover bg-no-repeat bg-top relative z-10 object-contain"
+        className="w-full py-24 px-6 bg-cover bg-no-repeat bg-center h-full relative z-10 object-contain mt-20 md:mt-24"
         style={{
           backgroundImage:
             "url('images/coverArt.jpg')",
         }}
       >
-        <div className="container max-w-4xl mx-auto text-center">
+        <div className="container max-w-4xl mx-auto my-auto">
           <h1 className="fontFamily text-gradient heroH1">
             {client.HeroTitle}
           </h1>
-          <p className="fontFamily heroP text-gradient">
+          <p className="fontFamily heroP text-gradien">
             {client.HeroQuote}
           </p>
 
