@@ -97,15 +97,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
     return (
         <>
-<<<<<<< HEAD
-            <main className="pt-24 my-8 -pb-2 h-screen ">
-                <div className="container mx-auto px-6">
-                    <div className=" xl:flex lg:flex md:block sm:block md:h-full md:justify-center">
-                        <div className=" xl:w-1/2 xl:h-full lg:w-2/3 md:w-4/5 ">
-                        {loadingTokensData && <Loader/>}
-=======
         {loadingTokensData && <Loader />}
->>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
 
         {!loadingTokensData &&
             <main className="py-4 my-4 ">
@@ -157,13 +149,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                 <>
                                     <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8'>
                                         <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
-<<<<<<< HEAD
                                         <span className=" text-xl object-contain flex flex-col sm:flex-row m-5 justify-start  items-center">
                                             <img src="../images/near.png" alt="here" className='w-4 h-4 '/>
-=======
-                                        <span className=" text-xl flex m-5 justify-start">
-                                            <img src="../images/near-protocol-near-logo.png" alt="here" className='w-4 h-4 my-auto' />
->>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
                                             <span className='px-2'>{price} </span>
                                         </span>
                                     </div>
@@ -189,18 +176,10 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     <div>
                                         <input value={bid} type="number" onChange={e => setBid(e.target.value)} min="0" className="rounded-full focus:outline-none text-gray-700 py-2" />
                                     </div>
-<<<<<<< HEAD
                                     <div className="flex items-center mt-3">
                                         <button className="buyButton" onClick={buy}>
                                         <Gavel className='mr-2' /> 
                                             Bid</button>
-=======
-                                    <div className="flex items-center pt-2 border-solid  border-t-2 border-full border-gray-200">
-                                        <button className="fontFamily buyButton" onClick={buy}>
-                                            <AccountBalanceWalletIcon className='mr-4' />
-                                            Buy
-                                        </button>
->>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
                                     </div>
                                 </>
                             }

@@ -37,19 +37,17 @@ font-family: mintingmusic;
 .screenTest{
   @apply  xl:bg-yellow-300 lg:bg-green-300 md:bg-purple-300 sm:bg-orange-700 
 }
-/* .video-size{
+.video-size{
   object-fit: contain;
   cursor: pointer;
-<<<<<<< HEAD
 }
 .fixedHeader{
   @apply xl:fixed header-bg lg:fixed md:fixed xl:z-50 lg:z-50 md:z-50 xl:w-full lg:w-full md:w-full xl:top-0 sm:p-1
 }
 
-=======
-  height: 35rem;
-} */
->>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
+  /* height: 35rem;
+}  */
+
 /* .test{
   background-image: url(images/near-protocol-near-logo.png);
 } */

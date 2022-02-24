@@ -55,7 +55,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
                 <div className="font-black text-lg">{title}</div>
                 <>
                   {tokens[0].list.autotransfer &&
-                    <div className="font-thin text-base my-2">Price: {price} Near</div>
+                    <div className="font-thin text-base my-2 flex items-center justify-center"> <img src="../images/near.png" alt="here" className='w-4 mx-2'/>  {price} </div>
                   }
                   {/* Put a small auction symbol here */}
                   {!tokens[0].list.autotransfer &&
