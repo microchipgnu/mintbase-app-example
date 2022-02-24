@@ -100,7 +100,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
         {loadingTokensData && <Loader />}
 
         {!loadingTokensData &&
-            <main className=" py-32 bg-gray-100 ">
+            <main className=" py-32 bg-gray-100">
                 <div className="container mx-auto px-6 md:">
                     <div className="bg:gray-100 lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center">
                         <div className="   xl:max-w-prose lg:max-w-prose md:max-w-full sm:max-w-full ">
