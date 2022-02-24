@@ -8,7 +8,7 @@ import Player from '../../components/Player';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import Loader from '../../components/Loader';
 import Gavel from '@material-ui/icons/Gavel';
-
+import DescriptionIcon from '@material-ui/icons/Description';
 var _nearApiJs = require("near-api-js");
 
 const FETCH_TOKEN = gql`
@@ -100,10 +100,10 @@ const Product = ({ thing_id }: { thing_id: string }) => {
         {loadingTokensData && <Loader />}
 
         {!loadingTokensData &&
-            <main className="py-4 my-32">
-                <div className="container mx-auto px-6">
-                    <div className="block md:flex md:justify-center">
-                        <div className=" xl:w-1/2 lg:w-2/3 md:w-4/5 shadow-2xl">
+            <main className=" py-32 bg-gray-100">
+                <div className="container mx-auto px-6 md:">
+                    <div className="bg:gray-100 lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center">
+                        <div className="   xl:max-w-prose lg:max-w-prose md:max-w-full sm:max-w-full ">
                             
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -113,41 +113,47 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     }
 
                                     {things[0]?.metadata.animation_type &&
-                                        <div id="responsiveVideoWrapper" className="shadow-xl ">
+                                        <div id="responsiveVideoWrapper" className=" lg:-mt-52 xl:mt-8 ">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
                                         </div>
                                     }
                                     <div className="divider divider-vertical"></div>
                                 </>
+                                <div className='xl:invisible md:invisible sm:invisible lg:visible w-full p-5'>
+                                    <p className='text-gray-400 py-2'>Owned by: <a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank">Arweave Link</a></p>
+                                    <DescriptionIcon />
+                                    <span className='text-gray-700 text-[18px] pt-2 border-solid border-b-2 border-full border-gray-200'>Desciption</span>
+                                    <p className='p-2'> <span className='storeID'>{things[0]?.metadata.description}</span> </p>
+                                </div>
                             
                         </div>
-                        <div className="priceTag">
+                        <div className="priceTag xl:ml-20 lg:ml-20 ">
+                            <h3 className="text-gray-700 uppercase text-2xl font-bold">{things[0]?.metadata.title}</h3>
+                            <div className='hoverPrice sm:ml-6'>
+                                <DescriptionIcon className='w-12'/>
+                                <span className='text-gray-700 text-[18px] pt-2 border-solid  border-b-2 border-full border-gray-200'>Desciption</span>
+                                <p className='p-2'> <span className='storeID'>{things[0]?.metadata.description}</span> </p>
+                                <p className='p-2'><a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank"> {things[0]?.metadata.external_url}</a> </p>
+                            </div>                            
+                            <div className=' ml-14 mb-2 '>
+                                <p className='text-gray-400'>Owned by: <a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank">Arweave Link</a></p>                            
+                                <p  className='text-gray-400'>Confirm Transcation: <a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Transaction Link</a></p>
+                            </div>
 
-                            <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
+                            <div className='text-gray-500 text-sm ml-14'>
 
-                            <div className='text-gray-500 mt-12 text-sm mx-5'>
-                               <p>Store ID: {things[0]?.storeId} </p>
-
-                                <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`}>Near Link</a></p>
-
-                                <p><a className='text-blue-400' href={`http://arweave.net/${thing_id}`} target="_blank">Arweave Link</a></p>
-
-                                <p>Tokens: {things[0]?.tokens.length} </p>
-
-                                <p>description: {things[0]?.metadata.description} </p>
-
-                                <p>externall URL :<a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank"> {things[0]?.metadata.external_url}</a> </p>
-
-                                {/* tags: {things[0]?.metadata.tags} <br /> */}
-
-                                <p>category: {things[0]?.metadata.category || 'Not Available'}</p>
+                                <div className='text-gray-700 text-[18px] '>
+                                    <p>Store ID: <span className='storeID'>{things[0]?.storeId}</span> </p>
+                                    <p>category: <span className='storeID'>{things[0]?.metadata.category || 'Not Available'}</span></p>
+                                    <p>Tokens: <span className='text-black'>{things[0]?.tokens.length}</span> </p>
+                                </div>                                
 
                             </div>
 
 
                             {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                 <>
-                                    <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8'>
+                                    <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8 pl-10'>
                                         <span className='text-gray-500 mt-12 text-sm mx-5'>current price</span> <br />
                                         <span className=" text-xl object-contain flex flex-col sm:flex-row m-5 justify-start  items-center">
                                             <img src="../images/near.png" alt="here" className='w-4 h-4 '/>
@@ -185,8 +191,9 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                             }
                                         
                         </div>
+                        <div className='red-300'></div>
                     </div>
-                </div>
+                </div>               
             </main>
     }
         </>
