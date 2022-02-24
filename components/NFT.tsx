@@ -25,7 +25,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
     // CDN the url, it will be faster
     return (
   
-      <div className="mb-6 mx-auto cursor-pointer w-4/5 md:w-full">
+      <div className="mb-6 mx-auto cursor-pointer w-full p-4">
         <Link
           href={{
             pathname: '/thing/[thing_id]',
@@ -35,7 +35,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
           }}
           as={`thing/${thing_id}`}
         >
-          <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl shadow-lg m-2 px-3 h-full">
+          <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl shadow-lg h-full  pb-2">
             <div>
   
               {!animation_type &&
@@ -55,7 +55,7 @@ const NFT = ({ thing_id, media, title, animation_url, animation_type, tokens }: 
                 <div className="font-black text-lg">{title}</div>
                 <>
                   {tokens[0].list.autotransfer &&
-                    <div className="font-thin text-base my-2 flex items-center justify-center"> <img src="../images/near.png" alt="here" className='w-4 mx-2'/>  {price} </div>
+                    <div className="font-thin text-base my-2 flex items-center justify-center">{price}  <img src="../images/near.png" alt="here" className='w-4 mx-2'/> </div>
                   }
                   {/* Put a small auction symbol here */}
                   {!tokens[0].list.autotransfer &&

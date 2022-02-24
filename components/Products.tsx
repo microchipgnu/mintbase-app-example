@@ -68,8 +68,8 @@ const Products = ({ storeId }: { storeId: string }) => {
   return (
     <>
       {loadingTokensData && <Loader />}
-      <div className="pt-6 pb-24 w-full mx-auto">
-        <div className="grid sm:grid-cols-2 gap-1 md:grid-cols-3">
+      <div className="p-6 pb-24 w-full mx-auto">
+        <div className="grid sm:grid-cols-2 gap-0 md:grid-cols-3">
           {metaData.map((meta: ProductMeta) => (
             <NFT
               key={meta.thing.id}

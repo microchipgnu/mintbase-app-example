@@ -8,9 +8,6 @@ function Player({ src, thumbnail, size }: { src?: string, thumbnail: string, siz
            else return styles['small-player']
     }
 
-    console.log(getStyle());
-    
-
     return (
         <div className=''>
             <div className="">
