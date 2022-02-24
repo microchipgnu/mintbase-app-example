@@ -14,15 +14,9 @@ function Player({ src, thumbnail, size }: { src?: string, thumbnail: string, siz
     return (
         <div className=''>
             <div className="">
-<<<<<<< HEAD
-              <video id="video" poster={thumbnail} controls controlsList="nodownload">
-                <source src={src}/>
-              </video>
-=======
                 <video id="video" className={getStyle()} poster={thumbnail} controls controlsList="nodownload">
                     <source src={src} />
                 </video>
->>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
             </div>
             {/* <style jsx>
                 {`
@@ -30,11 +24,8 @@ function Player({ src, thumbnail, size }: { src?: string, thumbnail: string, siz
                         height: 17em;
                         object-fit: contain
                     }
-<<<<<<< HEAD
-                `}  
-=======
+
                 `}
->>>>>>> 46a240152176ff087f7e9c78d7c93a9b547b135c
             </style> */}
         </div>
     );
