@@ -19,10 +19,10 @@ font-family: mintingmusic;
   font-family: mintingmusic;
 }
 .buyButton{
-  @apply bg-[#031844] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#000c16]
+  @apply bg-[black] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#000c16]
 }
 .headerBtn{
-  @apply bg-[#031844]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#000c16]
+  @apply bg-[#a6d8b2]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#000c16]
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
@@ -49,7 +49,7 @@ font-family: mintingmusic;
   font-size: 24px;
 }
 .playbutton {
-  background-color: #B1DBBB;
+  background-color: #a6d8b2;
   font-family: mintingmusic;
   border: none;
   border-radius: 7px;
@@ -65,17 +65,17 @@ font-family: mintingmusic;
 }
 
 .header-bg {
-  background-color:#0f0e13;
+  background-color:#383838;
   background-image:
-    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%),
-    radial-gradient(at 50% 100%, hsla(225,39%,25%,1) 0, transparent 50%);
+    /* radial-gradient(at 0% 0%, rgb(56, 56, 56) 0, transparent 50%), */
+    radial-gradient(at 50% 100%, rgb(85, 85, 85) 0, transparent 50%);
 }
 
 .footer-bg {
-  background-color: #0f0e13;
+  background-color:#383838;
   background-image:
-    radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(225,39%,25%,1) 0, transparent 50%);
+    /* radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 50%), */
+    radial-gradient(at 50% 100%, rgb(85, 85, 85) 0, transparent 50%);
 }
 
 .text-gradient {

@@ -29,9 +29,9 @@ const Header = () => {
 
         <div className=" md:mb-0 text-center md:text-right  ">
           <span className='md:hidden p-8 cursor-pointer' onClick={hidden}>
-            {navState ? <MenuIcon className='text-white'/> : <CloseIcon className='text-white'/>}
+            {navState ? <MenuIcon className='text-white' /> : <CloseIcon className='text-white' />}
           </span>
-          <div className="navMobile hidden md:flex p-4 z-50 bg-[#273359] md:bg-transparent -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between">
+          <div className="navMobile hidden md:flex p-4 z-50 bg-[#383838] md:bg-transparent -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between">
             {isConnected && (
               <p className="text-lg py-4 px-8 font-semibold text-white">
                 {wallet?.activeAccount?.accountId}
