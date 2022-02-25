@@ -3,8 +3,8 @@ import { useWallet } from '../services/providers/MintbaseWalletContext'
 import { gql } from 'apollo-boost'
 import { useLazyQuery } from '@apollo/client'
 import React from 'react'
-import { Player, BigPlayButton } from 'video-react';
 import 'video-react/dist/video-react.css';
+import Player from './Player'
 
 
 const FETCH_TOKENS = gql`
@@ -34,29 +34,24 @@ query FetchTokensByStoreId($ownerId: String!, $limit: Int, $offset: Int) {
 const NFT = ({ media, title, animation_url, animation_type }: { media: string; title: string; animation_url: string; animation_type: string }) => {
 
   return (
-    <div className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-      <div className="transition ease-in-out hover:scale-105 max-w-sm rounded overflow-hidden shadow-lg m-2 px-3">
+    <div className="mb-6 mx-auto cursor-pointer w-full p-4">
+      <div className="transition ease-in-out hover:scale-105 w-full rounded hover:shadow-2xl px-2 shadow-lg h-full  pb-2">
         <div>
 
           {!animation_type &&
-            <img className="w-full"
+            <img className="max-h-64 object-contain mx-auto"
               src={media}
               alt={title} />
           }
 
           {animation_type &&
-            < Player
-              playsInline={false}
-              poster={media}
-              src={animation_url}
-              className="items-center"
-            >
-              <BigPlayButton position="center" />
-            </Player>
+            <div className="max-h-64 mx-auto">
+              <Player src={animation_url} thumbnail={media} size={'small'}></Player>
+            </div>
           }
 
           <div className="px-30 py-2">
-            <div className="text-left font-bold text-lg">{title}</div>
+            <div className="text-center font-bold text-lg">{title}</div>
           </div>
         </div>
       </div>
@@ -110,8 +105,8 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
         <h1 className="drop-shadow-lg text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
           {wallet?.activeAccount?.accountId}, your tokens
         </h1>
-        <div className="container mx-auto pb-10 justify-center">
-          <div className="flex flex-wrap">
+        <div className="pb-24 w-full mx-auto bg-gray-100">
+          <div className="grid sm:grid-cols-2 gap-0 md:grid-cols-3">
             {metaData.map((meta: MetaData) => (
               <>
                 <NFT
