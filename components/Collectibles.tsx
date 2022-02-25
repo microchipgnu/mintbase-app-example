@@ -5,6 +5,7 @@ import { useLazyQuery } from '@apollo/client'
 import React from 'react'
 import 'video-react/dist/video-react.css';
 import Player from './Player'
+import Loader from './Loader'
 
 
 const FETCH_TOKENS = gql`
@@ -101,7 +102,10 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
 
   return (
     <div className="bg-fixed bg-gradient-to-r from-slate-50 to-slate-100 w-full px-6 py-10 bg-gray-100 border-t">
-      <>
+
+      {loadingTokensData && <Loader/>}
+      {!loadingTokensData && (
+        <>
         <h1 className="drop-shadow-lg text-xl text-center font-semibold tracking-widest uppercase text-gray-500 title-font md:text-4xl px-6 py-8">
           {wallet?.activeAccount?.accountId}, your tokens
         </h1>
@@ -120,6 +124,8 @@ const Collectibles = ({ ownerId }: { ownerId: string }) => {
           </div>
         </div>
       </>
+      )}
+      
     </div>
   )
 }
