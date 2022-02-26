@@ -49,6 +49,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     const [things, setThing] = useState<Thing[]>([])
     const { wallet, isConnected } = useWallet();
     const [bid, setBid] = useState('0')
+    const [hide, setHide] = useState(false)
+
 
     const [getTokens, { loading: loadingTokensData, data: tokensData, fetchMore }] =
         useLazyQuery(FETCH_TOKEN, {
@@ -98,16 +100,19 @@ const Product = ({ thing_id }: { thing_id: string }) => {
     else {
         currentBid = _nearApiJs.utils.format.formatNearAmount((Number(things[0]?.tokens[0].list.offer.price)).toLocaleString('fullwide', { useGrouping: false }), 5)
     }
+    const play = () => {
+        setHide(!hide)           
+    }
 
     return (
         <>
             {loadingTokensData && <Loader />}
 
             {!loadingTokensData &&
-                <main className="h-screen py-24 bg-gray-100">
+                <main className="h-screen py-24 ">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
-                            <div className="w-full my-auto">
+                            <div className="w-full my-auto rounded-md">
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -117,28 +122,38 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     }
 
                                     {things[0]?.metadata.animation_type &&
-                                        <div id="responsiveVideoWrapper" className="">
+                                        <div id="responsiveVideoWrapper" className="shadow-2xl my-28 mb-12 rounded-md ownerLabel  ">
                                             <Player src={things[0]?.metadata.animation_url!} thumbnail={things[0]?.metadata.media} size={"big"}></Player>
+                                            <div className=' py-4 pl-2'>
+                                                <p className=''>Owned by: <span className='text-blue-400'>{things[0]?.store.name}</span> </p>
+                                            </div>
                                         </div>
+                                        
                                     }
                                     <div className="divider divider-vertical"></div>
                                 </>
 
 
                             </div>
-                            <div className="priceTag w-full mb-12">
+                            <div className="priceTag w-full mb-12 ">
 
-                                <div className='w-full'>
-                                    <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
-                                    <p className='text-gray-400 py-2'>Owned by: <span className='storeID'>{things[0]?.store.name}</span> </p>
-                                    <DescriptionIcon />
-                                    <span className='text-gray-700 text-[18px] pt-2 border-solid border-b-2 border-full border-gray-200'>Desciption</span>
-
-                                    <p className='pt-2 h-16 overflow-y-scroll'> <span className='storeID'>{things[0]?.metadata.description}</span> </p>
+                                <div className='xl:max-w-lg lg:max-w-md ' id='container'>
+                                    <div className='border mb-2'>
+                                        <h3 className="text-gray-700 uppercase text-lg font-bold">{things[0]?.metadata.title}</h3>
+                                        <p className='text-gray-400 py-2'>Owned by: <span className='storeID'>{things[0]?.store.name}</span> </p>
+                                    </div>
+                                    <div className='border'>
+                                        <DescriptionIcon />
+                                        <span className='text-gray-700 text-[18px] pt-2 '>Desciption</span>
+                                            <p className={hide? 'pt-2 h-16 overflow-y-scroll ': 'pt-2 h-16 overflow-y-scroll truncate'}>
+                                                <span className='storeID'>{things[0]?.metadata.description}</span>
+                                            </p>
+                                        <span id='span' onClick={play} className='cursor-pointer text-blue-400'>seemore</span>
+                                    </div>
                                 </div>
 
 
-                                <div className='text-gray-500 mt-2 text-sm'>
+                                <div className='text-gray-500 mt-2 text-sm border'>
                                     <p>Store ID: {things[0]?.storeId} </p>
 
                                     <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>

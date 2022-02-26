@@ -6,9 +6,6 @@
 font-family: mintingmusic;
   src: url(fonts/rebi.ttf);
 }
-/* .headerstyle{
-  @apply w-full px-6 bg-[#231F20] uppercase
-} */
 .footerstyle{
   @apply w-full px-6 border-t  inset-x-0 bottom-0 footer-bg text-white uppercase
 }
@@ -22,7 +19,7 @@ font-family: mintingmusic;
   @apply bg-[black] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#000c16]
 }
 .headerBtn{
-  @apply bg-[#a6d8b2]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm py-2 px-5 hover:bg-[#000c16]
+  @apply bg-[#a6d8b2]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm max-h-10 px-5 hover:bg-[#000c16]
 }
 .heroH1{
   @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
@@ -32,6 +29,9 @@ font-family: mintingmusic;
 }
 .priceTag{
   @apply  p-5 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:max-w-full sm:max-w-full mt-4 
+}
+.navMobile{
+  @apply md:flex p-4 z-50 bg-[#383838] md:bg-transparent -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between
 }
 .video-size{
   object-fit: contain;
@@ -43,10 +43,14 @@ font-family: mintingmusic;
 .storeID{
   @apply text-gray-500
 }
-.details {
-  font-family: mintingmusic;
-  text-align: start;
-  font-size: 24px;
+.border{
+  @apply rounded-md p-2 border-dotted border-2 border-gray-300
+}
+.ownerLabel{
+background: rgba(114, 109, 109, 0.2);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .playbutton {
   background-color: #a6d8b2;
