@@ -43,7 +43,7 @@ font-family: mintingmusic;
 .storeID{
   @apply text-gray-500
 }
-.border{
+.app-border{
   @apply rounded-md p-2 border-dotted border-2 border-gray-300
 }
 .ownerLabel{
