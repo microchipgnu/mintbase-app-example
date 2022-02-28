@@ -115,7 +115,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                 <main className="h-screen py-24 ">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
-                            <div className="w-full my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl bg-gray-50">
+                            <div className="content-center w-full my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl bg-gray-50">
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -137,7 +137,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
 
                             </div>
-                            <div className="priceTag w-full mb-24 md:mb-12 lg:mb-0">
+                            <div className="mb-16 priceTag w-full content-center xl:mb-2 md:mb-12 lg:mb-6 sm:md-20">
 
                                 <div className='xl:max-w-lg lg:max-w-md ' id='container'>
                                     <div className='app-border mb-2'>
@@ -160,7 +160,12 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
                                     <p ><a className='text-blue-400' target="_blank" href={`https://explorer.${process.env.NETWORK === 'testnet' ? 'testnet' : ''}.near.org/transactions/${things[0]?.tokens[0].txId}`} rel="noreferrer" >Near Link</a></p>
 
-                                    <p><a className='text-blue-400' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
+                                    <p className='flex'>
+                                        <a className='text-blue-400 pr-1' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">
+                                            Arweave Link
+                                        </a>
+                                        <img src="../images/ARWEAVE.png" alt="here" className='w-6 h-5 text-black-300 pr-1' />
+                                    </p>
 
                                     <p>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
 
@@ -169,8 +174,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
                                     {isConnected && things[0]?.tokens[0].list.autotransfer &&
                                         <>
-                                            <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-8'>
-                                                <span className='text-gray-500 mt-12 text-sm'>current price</span> <br />
+                                            <div className='xl:pt-10 xl:pb-5 lg:pt-8 lg:pb-5 md:py-5 sm:py-4 '>
+                                                <span className='text-gray-500 mt-12 text-sm '>current price</span> <br />
                                                 <span className=" text-xl object-contain flex  m-5 justify-start  items-center">
                                                     <img src="../images/near.png" alt="here" className='w-4 h-4 ' />
                                                     <span className='px-2'>{price} </span>
