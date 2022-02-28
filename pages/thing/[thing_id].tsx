@@ -114,7 +114,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                 <main className="h-screen py-24 ">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
-                            <div className="content-center w-full my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl bg-gray-50">
+                            <div className="content-center w-full my-auto rounded-md p-5 border lg:mb-24 mx-auto shadow-2xl bg-gray-50">
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
