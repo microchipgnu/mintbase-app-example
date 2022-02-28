@@ -26,6 +26,9 @@ query MyQuery ($thing_id: String!) {
         }
         txId
       }
+      allTokens: tokens(distinct_on: id) {
+        id
+      }
       storeId
       store{
         name
@@ -43,9 +46,7 @@ query MyQuery ($thing_id: String!) {
     }
   }`
 
-//   allTokens: tokens(distinct_on: id, where: {list: {removedAt: {_is_null: false}}}) {
-//     id
-// }
+
 
 const Product = ({ thing_id }: { thing_id: string }) => {
     const [things, setThing] = useState<Thing[]>([])
@@ -161,7 +162,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
                                     <p><a className='text-blue-400' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">Arweave Link</a></p>
 
-                                    <p>Tokens: {things[0]?.tokens.length}</p>
+                                    <p>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
 
                                     <p><a className='text-blue-400' href={things[0]?.metadata.external_url} target="_blank" rel="noreferrer">Project Website</a> </p>
 
