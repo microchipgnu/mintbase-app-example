@@ -115,7 +115,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                 <main className="h-screen py-24 ">
                     <div className="container mx-auto md:px-6">
                         <div className="lg:flex lg:justify-around lx:flex md:block sm:block md:justify-center p-3 w-full">
-                            <div className="content-center w-full my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl bg-gray-50">
+                            <div className="content-center my-auto rounded-md p-5 border lg:mb-24 mx-4 shadow-2xl  bg-gray-50">
 
                                 <>
                                     {!things[0]?.metadata.animation_type &&
@@ -137,7 +137,7 @@ const Product = ({ thing_id }: { thing_id: string }) => {
 
 
                             </div>
-                            <div className="mb-16 priceTag w-full content-center xl:mb-2 md:mb-12 lg:mb-6 sm:md-20">
+                            <div className="mb-16 priceTag content-center mx-4 mb-24 xl:mb-2 md:mb-12 lg:mb-6">
 
                                 <div className='xl:max-w-lg lg:max-w-md ' id='container'>
                                     <div className='app-border mb-2'>
@@ -163,8 +163,8 @@ const Product = ({ thing_id }: { thing_id: string }) => {
                                     <p className='flex'>
                                         <a className='text-blue-400 pr-1' href={`https://viewblock.io/arweave/tx/${thing_id.split(":")[0]}`} target="_blank" rel="noreferrer">
                                             Arweave Link
+                                            <img src="../images/ARWEAVE.png" alt="here" className='w-5 h-4 text-black-300 pr-1 inline mx-2' />
                                         </a>
-                                        <img src="../images/ARWEAVE.png" alt="here" className='w-6 h-5 text-black-300 pr-1' />
                                     </p>
 
                                     <p>Tokens: {things[0]?.tokens.length} out of {things[0]?.allTokens.length}</p>
