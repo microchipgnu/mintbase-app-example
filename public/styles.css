@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+font-family: mintingmusic;
+  src: url(fonts/rebi.ttf);
+}
+.footerstyle{
+  @apply w-full px-6 border-t  inset-x-0 bottom-0 footer-bg text-white uppercase
+}
+.footerLink{
+  @apply text-white no-underline hover:underline ml-4
+}
+.fontFamily {
+  font-family: mintingmusic;
+}
+.buyButton{
+  @apply bg-[black] border-none rounded-md text-white text-center inline-block uppercase w-52 h-12 m-2  md:w-80 sm:w-full hover:bg-[#000c16]
+}
+.headerBtn{
+  @apply bg-[#a6d8b2]  shadow-white border-none rounded-md text-center uppercase inline-block no-underline text-white text-sm max-h-10 px-5 hover:bg-[#000c16]
+}
+.heroH1{
+  @apply text-xl leading-tight md:text-3xl text-center text-gray-100 mb-3
+}
+.heroP{
+  @apply text-lg md:text-lg text-center text-white 
+}
+.priceTag{
+  @apply  p-5 w-full max-w-lg mx-auto xl:p-8 lg:p-4 md:mt-2 rounded-md md:max-w-full sm:max-w-full mt-4 
+}
+.navMobile{
+  @apply md:flex p-4 z-50 bg-[#383838] md:bg-transparent -right-80 md:-mt-8  xl:-mt-10  lg:-mt-8 md:z-50  sm:z-50 sm:mt-8 absolute  mr-80 justify-between
+}
+.video-size{
+  object-fit: contain;
+  cursor: pointer;
+}
+.fixedHeader{
+  @apply fixed header-bg z-50 w-full top-0 sm:p-1
+}
+.storeID{
+  @apply text-gray-500 p-2
+}
+.app-border{
+  @apply rounded-md p-2 border-dotted border-2 border-gray-300
+}
+.ownerLabel{
+background: rgba(114, 109, 109, 0.2);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.playbutton {
+  background-color: #a6d8b2;
+  font-family: mintingmusic;
+  border: none;
+  border-radius: 7px;
+  color: black;
+  padding: 13px 32px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  width:100%;
+  font-size: 24px;
+  margin: 4px 2px;
+}
+
+.header-bg {
+  background-color:#383838;
+  background-image:
+    /* radial-gradient(at 0% 0%, rgb(56, 56, 56) 0, transparent 50%), */
+    radial-gradient(at 50% 100%, rgb(85, 85, 85) 0, transparent 50%);
+}
+
+.footer-bg {
+  background-color:#383838;
+  background-image:
+    /* radial-gradient(at 0% 100%, hsla(253,16%,7%,1) 0, transparent 50%), */
+    radial-gradient(at 50% 100%, rgb(85, 85, 85) 0, transparent 50%);
+}
+
+.text-gradient {
+  background-color: rgb(245, 242, 242);
+  background-image: radial-gradient(at 4% 36%, rgb(255, 141, 141) 0, transparent 53%), radial-gradient(at 100% 60%, rgb(255, 132, 132) 0, transparent 50%);
+  text-shadow: 0 0 1px white,
+               0 0 2px white,
+               0 0 3px white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
